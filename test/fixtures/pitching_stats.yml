@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Player_ID: 1
+  Game_ID: 1
+  Decision: MyString
+  GS: 1
+  IP: 1.5
+  BF: 1
+  H: 1
+  R: 1
+  ER: 1
+  BB: 1
+  K: 1
+  HB: 1
+  HR: 1
+  cg: 1
+
+two:
+  Player_ID: 1
+  Game_ID: 1
+  Decision: MyString
+  GS: 1
+  IP: 1.5
+  BF: 1
+  H: 1
+  R: 1
+  ER: 1
+  BB: 1
+  K: 1
+  HB: 1
+  HR: 1
+  cg: 1

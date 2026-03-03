@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Player_ID: 1
+  Game_ID: 1
+  AB: 1
+  R: 1
+  H: 1
+  2B: 1
+  3B: 1
+  HR: 1
+  RBI: 1
+  BB: 1
+  HBP: 1
+  K: 1
+  SB: 1
+  CS: 1
+  SAC: 1
+  SF: 1
+  LOB: 1
+  Bitching: 1
+  PO: 1
+  A: 1
+  E: 1
+
+two:
+  Player_ID: 1
+  Game_ID: 1
+  AB: 1
+  R: 1
+  H: 1
+  2B: 1
+  3B: 1
+  HR: 1
+  RBI: 1
+  BB: 1
+  HBP: 1
+  K: 1
+  SB: 1
+  CS: 1
+  SAC: 1
+  SF: 1
+  LOB: 1
+  Bitching: 1
+  PO: 1
+  A: 1
+  E: 1

@@ -1,0 +1,129 @@
+<% reset_cycle %>
+<table class="<%= table_css(all) %>">
+  <thead>
+    <tr>
+      <th><%= stat_label(display) %></th>
+      <% if display == "Game" %>        
+        <th>Dec</th>
+      <% else %>              
+        <th>W</th>
+        <th>L</th>
+        <th>S</th>
+      <% end %>
+      <% if all %>
+        <th>SVO</th>
+      <% end %>
+      <% if display == "Season" %>
+        <th>G</th>
+      <% end %>
+      <th>GS</th>
+      <th>IP</th>
+      <th>H</th>
+      <% if all %>
+        <th>R</th>
+      <% end %>
+      <th>ER</th>
+      <th>BB</th>
+      <th>K</th>
+      <% if all %>
+        <th>HB</th>
+        <th>HR</th>
+        <th>BF</th>
+        <th>CG</th>
+      <% end %>
+      <th>ERA</th>
+      <% if all %>
+        <th>WHIP</th>
+        <th>K/9</th>
+        <th>BB/9</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% stats.each do |stat| %>
+      <tr class="<%= cycle("oddrow",'') if !all %>">
+        <td>
+            <% if display == "Game" || display == "Season" %>
+                <%= link_to stat.name, player_path(stat.player_id) %>                           
+            <% else %>
+                <%= display_year_and_playoff(stat) %>                
+            <% end %>
+        </td>
+        <% if display == "Game" %>
+          <td><%= stat.decision %></td>
+        <% else %>
+          <td><%= stat.wins %></td>
+          <td><%= stat.losses %></td>
+          <td><%= stat.saves %></td>
+        <% end %>
+        <% if all %>
+          <td><%= stat.saves_opportunities %></td>
+        <% end %>
+        <% if display == "Season" %>
+          <td><%= stat.games %></td>
+        <% end %>
+        <td><%= stat.gs %></td>
+        <td><%= normalize_innings(stat.ip) %></td>
+        <td><%= stat.h %></td>
+        <% if all %>
+          <td><%= stat.r %></td>
+        <% end %>
+        <td><%= stat.er %></td>
+        <td><%= stat.bb %></td>
+        <td><%= stat.k %></td>
+        <% if all %>
+          <td><%= stat.hb %></td>
+          <td><%= stat.hr %></td>
+          <td><%= stat.bf %></td>
+          <td><%= stat.cg %></td>
+        <% end %>
+        <td><%= stat.era %></td>        
+        <% if all %>
+          <td><%= stat.whip %></td>
+          <td><%= stat.k_per_nine %></td>
+          <td><%= stat.bb_per_nine %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <% if local_assigns[:totals] %>
+      <tr >
+        <th><%= totals.name %></th>
+        <% if display == "Game" %>
+          <th>&nbsp;</th>
+        <% else %>
+          <th><%= totals.wins %></th>
+          <th><%= totals.losses %></th>
+          <th><%= totals.saves %></th>
+        <% end %>
+        <% if all %>
+          <th><%= totals.saves_opportunities %></th>
+        <% end %>
+        <% if display == "Season" %>
+          <th><%= totals.games %></th>
+        <% end %>
+        <th><%= totals.gs %></th>
+        <th><%= normalize_innings(totals.ip) %></th>
+        <th><%= totals.h %></th>
+        <% if all %>
+          <th><%= totals.r %></th>
+        <% end %>
+        <th><%= totals.er %></th>
+        <th><%= totals.bb %></th>
+        <th><%= totals.k %></th>
+        <% if all %>
+          <th><%= totals.hb %></th>
+          <th><%= totals.hr %></th>
+          <th><%= totals.bf %></th>
+          <th><%= totals.cg %></th>
+        <% end %>        
+        <th><%= totals.era %></th>        
+        <% if all %>
+          <th><%= totals.whip %></th>
+          <th><%= totals.k_per_nine %></th>
+          <th><%= totals.bb_per_nine %></th>
+        <% end %>        
+      </tr>    
+    <% end %>
+</table>

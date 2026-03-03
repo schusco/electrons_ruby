@@ -1,0 +1,12 @@
+<% content_for :title, "Editing history" %>
+
+<h1>Editing history</h1>
+
+<%= render "admin/form", record: @history %>
+
+<br>
+
+<div>
+  <%= link_to "Show this history", @history %> |
+  <%= link_to "Back to histories", history_index_path %>
+</div>

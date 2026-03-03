@@ -1,0 +1,8 @@
+default: &default
+  jumbo_text: "<strong>Winnemac Electrons</strong><br />5 Time CMBA Champions<br />2015, 2016, 2023, 2024, 2025"
+
+development:
+  <<: *default
+
+production:
+  <<: *default

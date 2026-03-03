@@ -1,0 +1,11 @@
+<% content_for :title, "New depth chart" %>
+
+<h1>New depth chart</h1>
+
+<%= render "form", depth_chart: @depth_chart %>
+
+<br>
+
+<div>
+  <%= link_to "Back to depth charts", depth_charts_path %>
+</div>

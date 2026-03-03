@@ -1,0 +1,33 @@
+<% position_name = @depth_charts.first.position_name %>
+<h1>Editing <%= position_name %> Depth Chart</h1>
+
+<%= form_with url: update_position_depth_charts_path(position: @position), method: :patch, data: { controller: "sortable" } do |f| %>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+      </tr>
+    </thead>
+    <tbody data-controller="sortable" >
+      <% @depth_charts.each do |dc| %>
+        <%# Notice the [id] naming convention here %>
+        <%= fields_for "depth_charts[#{dc.id}]", dc do |ff| %>
+          <tr data-id="<%= dc.id %>">
+            <td><%= ff.number_field :Rank, class: "form-control rank-input" %></td>
+            <td>
+                <div class="d-flex align-items-center">
+              <%= ff.collection_select :Player, Player.current.order(:last_name), :id, :short_name_last_first, { include_blank: "-- Select Player --" }, { class: "form-control" } %>
+              <span class="handle me-2" style="cursor: grab;">☰<i class="bi bi-grip-horizontal"></i></span>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<div class="mt-2">
+  <%= f.submit "Update All", class: "btn-primary" %>
+  <%= link_to "Cancel", depth_charts_path, class: "btn-secondary ms-2" %>
+</div>
+<% end %>

@@ -1,0 +1,88 @@
+<div class="row mt-2">
+    <div class="col col-auto mx-auto">
+        <h3>Electron Records</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-5 mx-auto">
+        <%= form_with url: records_path, method: :get, data: { turbo_fram: "stats" } do %>  
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li role="presentation" class="nav-item active"><a href="#hit" aria-controls="hit" role="tab" class="nav-link <%= "active" if params[:type] || "hitting" == "hitting" %>" data-toggle="tab">Hitting Stats</a></li>
+                <li role="presentation" class="nav-item"><a href="#pitch" aria-controls="pitch" role="tab" class="nav-link <%= "active" if params[:type] == "pitching" %>" data-toggle="tab">Pitching Stats</a></li>
+            </ul>
+            <div class="tab-content">
+                
+                <div role="tabpanel" class="tab-pane <%= 'show active' if @view.active == "hit" %>" id="hit">
+                    <div class="row m-3">
+                        <div class="col-sm-7 mt-2" >                            
+                            <% [ "Season", "Career", "Playoffs" ].each do |option| %>
+                            <%= label_tag "hitting_#{option}" do %>
+                                <%= radio_button_tag :hscope, option, @view.scope == option, class: "ms-2" %>
+                                <%= option.titleize %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                        <div class="col-sm-3">
+                            <%= select_tag :hcategory,
+                                options_for_select(@view.hitting_categories, params[:hcategory]), prompt: "-- Select --", class: "form-control" %>
+                        </div>
+                        <div class="col-sm-2">
+                            <%= submit_tag "Search", name: "hit", class: "btn btn-default" %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 mb-1">
+                            <span style="font-size:.8em;">*Min 50 AB / Season. 100 AB / Career. 15 AB / Playoffs</span>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane <%= 'show active' if @view.active == "pitch" %>" id="pitch">
+                    <div class="row m-3">
+                        <div class="col-sm-7 mt-2">
+                            <% [ "Season", "Career", "Playoffs"].each do |option| %>                            
+                            <%= label_tag "pitching_#{option}" do %>
+                                <%= radio_button_tag :scope, option, @view.scope == option, class: "ms-2" %>
+                                <%= option.titleize %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                        <div class="col-sm-3">
+                            <%= select_tag :pcategory,
+                                options_for_select(@view.pitching_categories, params[:pcategory]), prompt: "-- Select --", class: "form-control" %>
+                        </div>
+                        <div class="col-sm-2">
+                            <%= submit_tag "Search", name: "pitch", class: "btn btn-default" %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 mb-1">
+                            <span style="font-size:.8em;">*Min 25 IP / Season. 50 IP / Career. 10 IP / Playoffs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%= turbo_frame_tag "stats" do %>
+                <% if @view.stats&.any? %>
+                    <table class = "tronTable">
+                        <tr>
+                            <% if @view.scope == "Season" %>
+                                <th>Season</th>
+                                <% end %>
+                                <th>Player</th>
+                                <th><%= @view.stat_header %></th>                            
+                        </tr>
+                        <% @view.stats.each do |stat| %>
+                            <tr class="<%= cycle("oddrow","")%>">
+                                <% if @view.scope == "Season" %>
+                                <td><%= stat[:year] %></td>
+                                <% end %>
+                                <td><%= stat[:name] %></td>
+                                <td><%= stat[:value] %></td>
+                            </tr>
+                        <% end %>
+                    </table>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

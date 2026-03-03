@@ -1,0 +1,79 @@
+<%= form_with(model: @team) do |form| %>
+  <% if team.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+        <% team.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">    
+    <div class="row mt-2">
+        <div class="col-sm-1">      
+            <%= form.label :name %>
+        </div>
+        <div class="col-sm-2">
+            <%= form.text_field :name, class: "form-control" %>
+        </div>
+    </div>
+  </div>
+  <div class="row">    
+    <div class="row mt-2">
+        <div class="col-sm-1">      
+            <%= form.label :wins %>
+        </div>
+        <div class="col-sm-1">
+            <%= form.number_field :wins, class: "form-control" %>
+        </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-1">      
+      <%= form.label :losses %></div><div class=col-sm-1>
+      <%= form.number_field :losses, class: "form-control" %></div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-1">      
+      <%= form.label :ties %>
+    </div>
+    <div class="col-sm-1">
+      <%= form.number_field :ties, class: "form-control" %>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-1">      
+      <%= form.label :forfeits %>
+    </div>
+    <div class="col-sm-1">
+      <%= form.number_field :forfeits, class: "form-control" %>
+    </div>
+  </div>
+  <div class="row">    
+    <div class="row mt-2">
+        <div class="col-sm-1">      
+            <%= form.label :division %>
+        </div>
+        <div class="col-sm-2">
+            <%= form.text_field :division, class: "form-control" %>
+        </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-1">      
+      <%= form.label :active %>
+    </div>
+    <div class="col-sm-1">
+      <%= form.check_box :active %>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      <%= form.submit "Update Team", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

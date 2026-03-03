@@ -1,0 +1,46 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="row">
+    <div class="col col-auto mx-auto align-content-center" >
+        <h2>Current Electrons Roster</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-8 mx-auto">
+        <table class="tronTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Birth Place</th>
+                    <th>Position</th>
+                    <th>Rookie Year</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @players.each do |player| %>
+                    <tr class="tronTable <%= cycle('oddrow', '') %>">
+                        <td class="tronTable"><%= player.uniform %></td>
+                        <td class="tronTable"><%= link_to player.full_name, player %></td>
+                        <td class="tronTable"><%= player.height_string %></td>
+                        <td class="tronTable"><%= player.Weight %></td>
+                        <td class="tronTable"><%= player.Hometown %></td>
+                        <td class="tronTable"><%= player.position_string %></td>
+                        <td class="tronTable"><%= player.rookie_year %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<% if admin? %>
+<div class="row mt-3">
+    <div class="col offset-2 col-sm-8 ml-auto mr-auto">         
+         <%= link_to "Add player", new_player_path %>
+    </div>
+</div>
+<% end %>
+

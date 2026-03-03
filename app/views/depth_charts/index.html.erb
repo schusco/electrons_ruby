@@ -1,0 +1,62 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Eletrons Depth Chart" %>
+
+<style>
+    div.dcforeColor {
+        color: #555 !important;
+    }
+</style>
+<div class="row ">
+    <div class="col col-auto mx-auto">
+        <h2><%= "#{@current_year} Electrons Depth Chart" %></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-10 mx-auto">
+        <div class="depthChartImg">
+            <div class="row">
+                <div class="col-4 dcforeColor " style="margin-top:35px;margin-left:80px">
+                    <%= render "depth_chart_display", data: @positions[7], position: 7 %>
+                </div>
+                <div class="col-3 dcforeColor" style="margin-top:15px">
+                    <%= render "depth_chart_display", data: @positions[8], position: 8 %>
+                </div>
+                <div class="col-3 dcforeColor" style="margin-top:35px;margin-left:25px">
+                    <%= render "depth_chart_display", data: @positions[9], position: 9 %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 dcforeColor" style="margin-top:25px;margin-left:40px">
+                    <%= render "depth_chart_display", data: @positions[5], position: 5 %>
+                </div>
+                <div class="col-3 dcforeColor" style="margin-top:-5px">
+                    <%= render "depth_chart_display", data: @positions[6], position: 6 %>
+                </div>
+                <div class="col-3 dcforeColor" style="margin-top:-5px;margin-left:20px">
+                    <%= render "depth_chart_display", data: @positions[4], position: 4 %>
+                </div>
+                <div class="col-2 dcforeColor" style="margin-top:25px">
+                    <%= render "depth_chart_display", data: @positions[3], position: 3 %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 dcforeColor mx-auto" style="margin-top:-25px">
+                    <%= render "depth_chart_display", data: @positions[1], position: 1 %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 dcforeColor ms-5" style="margin-top:-25px">
+                    <%= render "depth_chart_display", data: @positions[10], position: 10 %>
+                </div>
+                <div class="col-7 dcforeColor ms-5" style="margin-top:55px;padding-left:100px">
+                    <%= render "depth_chart_display", data: @positions[2], position: 2 %>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<% if admin? %>
+  <%= link_to "New depth chart", new_depth_chart_path %>
+<% end %>

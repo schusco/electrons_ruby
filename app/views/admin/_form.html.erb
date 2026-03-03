@@ -1,0 +1,59 @@
+<% url = record.persisted? ? history_path(record) : record %>
+<%= form_with(model: record, url: url, as: :history, method: record.persisted? ? :patch : :post, local: true) do |form| %>
+  <% if record.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+      <ul>
+        <% record.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.hidden_field :Category %>  
+<div class="row">
+  <div class="col-sm-4">
+  <div>
+    <%= form.label :Data, style: "display: block" %>
+    <%= form.text_field :Data, class: "form-control" %>
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-sm-4">  
+    <%= form.label :YearStart, style: "display: block" %>
+    <% if form.object.persisted? %>
+      <%= form.number_field :YearStart, class: "form-control", value: form.object.YearStart, disabled: true %>
+    <% else %>
+      <div data-controller="uniqueness" data-uniqueness-url-value="<%= check_uniqueness_histories_path %>" data-uniqueness-category-value="<%= record.Category %>">    
+        <%= form.number_field :YearStart, 
+            data: { 
+              uniqueness_target: "input", 
+              action: "blur->uniqueness#check" 
+            } %>
+        <span data-uniqueness-target="error" class="text-danger"></span>
+    <% end %>
+    </div>
+  </div>
+  
+<div class="row">
+  <div class="col-sm-4">
+    <%= form.label :YearEnd, style: "display: block" %>
+    <%= form.text_field :YearEnd, class: "form-control" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <%= form.label :Finish, style: "display: block" %>
+    <%= form.text_field :Finish, class: "form-control" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 mt-2">
+     
+    <%= form.submit %>
+  </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Category: MyString
+  Data: MyString
+  YearStart: MyString
+  YearEnd: MyString
+  Finish: MyString
+
+two:
+  Category: MyString
+  Data: MyString
+  YearStart: MyString
+  YearEnd: MyString
+  Finish: MyString

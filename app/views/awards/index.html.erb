@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Awards" %>
+
+<h1>Awards for: <%= @player.name_last_first %></h1>
+
+<div id="awards">
+  <% @awards.each do |award| %>
+    <%= render award %>
+    <p>
+      <%= link_to "Show this award", award %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New award", new_player_award_path %>

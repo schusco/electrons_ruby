@@ -1,0 +1,102 @@
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-sm-12 mt-3">
+            <div class="jumbotron">
+                <h1 class="display-4 center" style="font-weight:bold"><%= raw(@jumbo_text) %></h1>
+            </div>            
+        </div>
+    </div>
+    <div class="row" mt-1>
+    <div class="col-md-4 mt-1">
+        <div class="tronNextouting align-content-start mb-3">
+            <div class="row mt-1">
+                <div class="nextOutingText col col-sm-12"> 
+                    Next Outing
+                </div>
+            </div>
+
+            <div class="row mt-3 nextOutingRow">
+                <% if @game.present? && !@game.home_logo.nil? && !@game.away_logo.nil? %>
+                    <div class="col col-xs-4 center">
+                        <%= image_tag(@game.home_logo, alt: @game.home_team, height: 85, width: 85, style: "color:white;text-align:center") %>
+                    </div>
+                    <div class="col col-xs-4 center pt-4">
+                        <span class="nextOutingText center">Vs.</span>
+
+                    </div>
+                    <div class="col col-xs-4 center">
+                        <%= image_tag(@game.away_logo, alt: @game.away_team, height: 85, width: 85, style: "color:white;text-align:center") %>
+                    </div>
+                <% else %>                
+                    <div style="margin-top:120px">&nbsp;</div>
+                <% end %>
+            </div>
+            <div class=" row mt-4">
+                <% if @game.present?%>
+                <div class="nextOutingText col col-sm-12">
+                   <%= @game.Game_Date.utc.strftime("%-m/%-d/%Y %-l:%M %p") %>
+                </div>
+                <% end %>
+            </div>
+            <div class=" row mt-1">
+                <% if @game.present? && @game.location.present? %>
+                <div class=" nextOutingText col col-sm-12">
+                    <%= @game.location.FieldName %>
+                </div>
+                <% end %>
+            </div>
+            <div class="row mt-1 mb-3">
+                <div class="nextOutingText col col-sm-12">                    
+                    <span><%= link_to "Complete Schedule", gameschedules_path, class: "complSched" %></span>
+                </div>
+                <% if admin? %>
+                    <%= link_to "View Teams", teams_path  %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-1">
+        <%= carousel("public/images/carousel") %>
+    </div>
+    <div class="row mt-3">
+    <div class="col-md-6 ">        
+        <div class="tronStandings pb-3 mx-2 mb-4">
+            <div class="col-md-12 nextOutingText">
+                Standings
+            </div>
+            <div class="col-md-12 tronStandings">
+                <table class="tronTable">            
+                    <tbody>
+                        <% @teams.group_by(&:division).each do |division, teams| %>
+                        <tr class="tronTable table-secondary">
+                            <td colspan="6"><h4><%= division %></h4></td>
+                        </tr>
+                        <tr>
+                        <th>Team</th>
+                        <th>W</th>
+                        <th>L</th>
+                        <th>T</th>      
+                        <th>Pts.</th>
+                        </tr>
+                        <% teams.each do |team| %>
+                            <tr class="<%= cycle('oddrow', '') %>">
+                            <td><%= image_tag(team.logo_path, height: 25, width: 25) %>
+                            <span class="teamName"><%= team.name %></span></td>
+                            <td><%= team.wins %></td>
+                            <td><%= team.losses %></td>
+                            <td><%= team.ties %></td>          
+                            <td><%= team.standings_points %></td>
+                            </tr>
+                        <% end %>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 tronLegend">
+        "Dogged by rumors, plagued by scandal, shunned by the mainstream media, fueled by steroids, ravaged by STDs, weakened by kryptonite, prohibited from standing within 200 yards of most elementary schools, and suffering from an overall lack of athletic ability, the Winnemac Electrons prepare to engage in what will be the greatest baseball story ever told."
+    </div>
+</div>
+</div>

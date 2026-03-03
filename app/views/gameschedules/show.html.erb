@@ -1,0 +1,83 @@
+<% 
+  display_count = @game.total_innings_to_display
+  # Index innings by number for O(1) lookups: { 1 => InningObj, 2 => InningObj }
+  innings_map = @game.innings.index_by(&:Inning) 
+%>
+<div class="row" style="margin-top:5px">
+    <div class="col-lg-12 center">
+        <h4><%= @game.date_and_location %></h4>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-lg-1 pull-left " >
+        <%= image_tag @game.home_logo, class: "homeLogo", width: 70, height: 70 %>
+    </div>
+    <div class="col-lg-1 text-start">
+        <h1><%= @game.home_total_runs %></h1>
+    </div>
+    <div class="col-lg-8 text-center">        
+        <table class="tronTable widemargin">
+        <thead>
+            <tr>
+            <th>Team</th>
+            <% (1..display_count).each do |i| %>
+                <th><%= i %></th>
+            <% end %>
+            <th class="total">R</th>
+            <th class="total">H</th>
+            <th class="total">E</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="oddrow" >
+            <td><strong><%= @game.away_team %></strong></td>
+            <% (1..display_count).each do |i| %>        
+                <td><%= innings_map[i]&.Aruns || "X" %></td>
+            <% end %>
+            <td class="total"><%= @game.away_total_runs %></td>
+            <td class="total"><%= @game.away_total_hits %></td>
+            <td class="total"><%= @game.away_total_errors %></td>
+            </tr>
+
+            <tr>
+            <td><strong><%= @game.home_team %></strong></td>
+            <% (1..display_count).each do |i| %>        
+                <td><%= innings_map[i]&.Hruns || "X"  %></td>
+            <% end %>
+            <td class="total"><%= @game.home_total_runs %></td>
+            <td class="total"><%= @game.home_total_hits %></td>
+            <td class="total"><%= @game.home_total_errors %></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="col-lg-1 text-end">
+        <h1><%= @game.away_total_runs %></h1>
+    </div>
+    <div class="col-lg-1 pull-right">
+        <%= image_tag @game.away_logo, class: "awayLogo", width: 70, height: 70 %>
+    </div>
+</div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-lg-12">
+            <% if @game.pitching_stats.any? %>
+                <%= render partial: "shared/pitching_stats", locals: { stats: @game_pitching_rows, display: "Game", all: true } %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-lg-12">
+            <% if @game.hitting_stats.any? %>
+                <%= render partial: "shared/hitting_stats", locals: { stats: @game_hitting_rows, display: "Game", all: true } %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px">
+        <div class="col-lg-12">
+            <% if !@game.notes.nil? && @game.notes.strip.length > 0 %>
+                <p>Notes: <%= @game.notes %></p>
+            <% end %>
+        </div>
+    </div>
+</div>
+

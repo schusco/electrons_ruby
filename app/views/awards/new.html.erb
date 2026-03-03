@@ -1,0 +1,11 @@
+<% content_for :title, "New award" %>
+
+<h1>New award</h1>
+
+<%= render "form", award: @award %>
+
+<br>
+
+<div>
+  <%= link_to "Back to awards", player_awards_path(@award.player) %>
+</div>

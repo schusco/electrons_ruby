@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Player_ID: 1
+  First_Name: MyString
+  Last_Name: MyString
+  Current: false
+  Bats: MyString
+  Throws: MyString
+  POS1: MyString
+  POS2: MyString
+  POS3: MyString
+  Nickname: MyString
+  Hometown: MyString
+  Divorces: 1
+  DOB: 2026-02-22 08:47:28
+  Height: 1
+  Weight: 1
+  Image: false
+  uniform: 1
+  email: MyString
+
+two:
+  Player_ID: 1
+  First_Name: MyString
+  Last_Name: MyString
+  Current: false
+  Bats: MyString
+  Throws: MyString
+  POS1: MyString
+  POS2: MyString
+  POS3: MyString
+  Nickname: MyString
+  Hometown: MyString
+  Divorces: 1
+  DOB: 2026-02-22 08:47:28
+  Height: 1
+  Weight: 1
+  Image: false
+  uniform: 1
+  email: MyString

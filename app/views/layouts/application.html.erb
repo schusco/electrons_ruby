@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Electrons" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Electrons">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body style="margin-left:25px;margin-right:25px; padding:5px">
+    <div class="tronHeaderbar menuStyle">
+    <p><span style="position:absolute;left:10px"></span>Baseball Club</p>
+</div>
+<div class="tronHeaderlogo"><%= image_tag("headerlogo.gif") %></div>
+
+<nav class="navbar navbar-expand-sm tronNavbar navbar-inverse sticky-top" role="navigation">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="btn btn-outline-light navbar-toggle d-md-none collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse justify-content-center ">
+            <div class="row w-100 ">
+                <div class="col col-auto mx-auto">
+                    <ul class="nav navbar-nav w-100 mx-auto tronNav">
+                        <li class="menuStyle"><a href="/" class="headerLink ">Home</a></li>
+                        <li class="menuStyle"><a href="/schedule" class="headerLink">Schedule</a></li>
+                        <li class="menuStyle"><a href="/statistics" class="headerLink">Statistics</a></li>
+                        <li class="menuStyle"><a href="/roster" class="headerLink">Roster</a></li>
+                        <li class="menuStyle"><a href="/depth_charts" class="headerLink">Depth Chart</a></li>
+                        <li class="menuStyle"><a href="/history" class="headerLink">History</a></li>
+                        <li class="menuStyle"><a href="/ballpark" class="headerLink">Ball Park</a></li>
+                        <li class="mr-2 float-lg-right"><a href="http://www.facebook.com/pages/Ks-Dugout/191467100876630" class="headerLink" target="_ks"><%= image_tag("navsponsor.png", class:" float-right", width:"30", height:"50", alt:"k's dugout") %></a></li>
+                        <li class=" mr-2 float-lg-right"><a href="http://www.electricalaudio.com/" class="headerLink" target="_electricalAudio"><%= image_tag("navelectricalaudio.png", class:"float-right", width:"30", height:"50", alt:"electrical audio") %></a></li>
+                        <li class=" mr-2 float-lg-right"><a href="http://twitter.com/ElectronsBBall" class="headerLink" target="_twitter"><%= image_tag("navtwitter.png", class:"float-right", alt:"follow us", width:"30", height:"50") %></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+    <%= yield %>    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.3/js/jquery.tablesorter.widgets.min.js"></script>
+ <script>
+     $(document).on("ajaxStart",function () {
+         $('#loadingDiv').show();
+     })
+     $(document).on("ajaxStop",function () {
+         $('#loadingDiv').hide();
+     })
+     document.addEventListener("turbo:load", function() {
+         $(".tablesorter").tablesorter({
+             theme: '',
+             headerTemplate: '{content}',
+             cssHeader: 'header',
+             cssAsc: 'headerSortUp',
+             cssDesc: 'headerSortDown',
+             sortInitialOrder: 'desc',
+             sortList: [[0, 0]],
+             widgets: ['zebra']
+         });
+         const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+
+         tabs.forEach(tab => {
+            tab.addEventListener("shown.bs.tab", function (event) {
+            const type = event.target.dataset.type;
+            document.getElementById("type_field").value = type;
+            });
+         });
+     });
+ </script>
+  </body>
+</html>

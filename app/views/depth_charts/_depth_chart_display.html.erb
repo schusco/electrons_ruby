@@ -1,0 +1,10 @@
+<div id="depth_charts">
+  <% data.each do |depth_chart| %>
+    <h5><%= depth_chart.player&.short_name_last_first %></h5>    
+  <% end %>
+  <p>
+    <% if admin? %>
+      <%= link_to "Edit #{data.first.position_name}", edit_position_depth_charts_path(position: position) %>
+    <% end %>
+    </p>
+</div>

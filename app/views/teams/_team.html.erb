@@ -1,0 +1,30 @@
+<div id="<%= dom_id team %>">
+    <div class="row">
+        <div class="col-sm-2">
+            <strong>Team</strong>
+        </div>
+        <div class="col-sm-1">
+            <strong>Record</strong>
+        </div>
+        <div class="col-sm-1">
+            <strong>Divsion</strong>
+        </div>
+        <div class="col-sm-1">
+            <strong>Status</strong>
+        </div>
+    </div>
+    <div class="row mt-1 mb-1">
+        <div class="col-sm-2">
+            <%= team.name %>
+        </div>
+        <div class="col-sm-1">
+            <%= team.wins %>-<%= team.losses %>-<%= team.ties %>
+        </div>
+        <div class="col-sm-1">
+            <%= team.division %>
+        </div>
+        <div class="col-sm-1">
+            <%= "Active" if team.active %>
+        </div>
+    </div>
+</div>

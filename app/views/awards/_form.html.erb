@@ -1,0 +1,32 @@
+<%= form_with(model: [@player, @award]) do |form| %>
+  <% if award.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(award.errors.count, "error") %> prohibited this award from being saved:</h2>
+
+      <ul>
+        <% award.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <%= form.label :award, style: "display: block" %>
+      <%= form.text_area :award, rows: 3, cols: 50 %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">      
+      <h3> Awarded to: <%= @player.name_last_first %></h3>      
+      </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-sm-3">
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="text-center"><%= data.first.category_name %></h3>
+    </div>
+</div>
+<% reset_cycle %>
+<table class="tronTable">
+    <thead>
+        <tr>
+            <% data.first.table_headers.each do |header| %>
+                <th><%= header %></th>
+            <% end %>
+            <% if local_assigns[:playoffs] %>
+                <th>Playoffs</th>
+            <% end %>
+            <% if admin? && editable %>
+                <th>Edit</th>
+            <% end %>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.each do |history| %>
+            <tr class="<%= cycle('oddrow', '') %>">
+                <% history.display_fields.each do |field| %>                    
+                    <td><%= history.send(field) %></td>                    
+                <% end %>
+                <% if local_assigns[:playoffs] %>
+                    <% playoff_record = playoffs.find { |m| m["Manager"] == history.manager }%>
+                    <td><%= playoff_record&.[]("record") || "N/A" %></td>
+                <% end %>
+                <% if admin? && editable %>
+                <td><%= link_to "Edit", edit_history_path(history) %></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </tbody>
+    <% if local_assigns[:total] %>
+    <tfoot class="table-dark">
+      <tr>
+        <% total.display_fields.each do |field| %>
+            <th><%= total.send(field) %></th>
+        <% end %>
+        <% playoff_total_record = playoffs.find { |m| m["Manager"] == "Total" } %>
+        <th><%= playoff_total_record&.[]("record") || "N/A" %></th>
+        <% if admin? && editable %>
+        <th>&nbsp;</th>
+        <% end %>
+      </tr>
+    </tfoot>
+    <% end %>
+</table>

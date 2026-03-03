@@ -1,0 +1,116 @@
+<table class="<%= table_css(all) %>" >
+  <thead>
+    <tr>
+      <th><%= stat_label(display) %></th>   
+      <% if all  %>
+        <th>G</th>
+      <% end %>
+      <th>AB</th>
+      <th>R</th>
+      <th>H</th>
+      <% if all %>
+        <th>2B</th>
+        <th>3B</th>
+      <% end %>
+      <th>HR</th>
+      <th>RBI</th>
+      <th>BB</th>
+      <% if all %>
+        <th>HBP</th>
+      <% end %>
+      <th>K</th>
+      <th>SB</th>
+      <% if all %>
+        <th>CS</th>
+        <th>SAC</th>
+        <th>SF</th>
+        <th>LOB</th>
+      <% end %>
+      <th>BA</th>
+      <th>OBP</th>
+      <th>SLG</th>
+      <% if all %>
+        <th>OPS</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% stats.each do |stat| %>
+      <tr class="<%= cycle("oddrow",'') if !all %>">
+        <td>
+            <% if !stat.name.nil? %>
+                <%= link_to stat.name, player_path(stat.player_id) %>                
+            <% else %>
+                <%= display_year_and_playoff(stat) %>                
+            <% end %>
+        </td>  
+        <% if all %>
+          <td><%= stat.games %></td>
+        <% end %>      
+        <td><%= stat.ab %></td>
+        <td><%= stat.r %></td>
+        <td><%= stat.h %></td>
+        <% if all %>
+          <td><%= stat.doubles %></td>
+          <td><%= stat.triples %></td>
+        <% end %>
+        <td><%= stat.hr %></td>
+        <td><%= stat.rbi %></td>
+        <td><%= stat.bb %></td>
+        <% if all %>
+          <td><%= stat.hbp %></td>
+        <% end %>
+        <td><%= stat.k %></td>
+        <td><%= stat.sb %></td>
+        <% if all %>
+          <td><%= stat.cs %></td>
+          <td><%= stat.sac %></td>
+          <td><%= stat.sf %></td>
+          <td><%= stat.lob %></td>
+        <% end %>
+        <td><%= stat.ba %></td>
+        <td><%= stat.obp %></td>
+        <td><%= stat.slg %></td>
+        <% if all %>
+          <td><%= stat.ops %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+  <% if local_assigns[:totals] %>
+  <tfoot>    
+    <tr>
+      <th><%= totals.name %></th>   
+      <% if all  %>
+        <th><%= totals.games %></th>
+      <% end %>
+      <th><%= totals.ab %></th>
+      <th><%= totals.r %></th>
+      <th><%= totals.h %></th>
+      <% if all %>
+        <th><%= totals.doubles %></th>
+        <th><%= totals.triples %></th>
+      <% end %>
+      <th><%= totals.hr %></th>
+      <th><%= totals.rbi %></th>
+      <th><%= totals.bb %></th>
+      <% if all %>
+        <th><%= totals.hbp %></th>
+      <% end %>
+      <th><%= totals.k %></th>
+      <th><%= totals.sb %></th>
+      <% if all %>
+        <th><%= totals.cs %></th>
+        <th><%= totals.sac %></th>
+        <th><%= totals.sf %></th>
+        <th><%= totals.lob %></th>
+      <% end %>
+      <th><%= totals.ba %></th>
+      <th><%= totals.obp %></th>
+      <th><%= totals.slg %></th>
+      <% if all %>
+        <th><%= totals.ops %></th>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

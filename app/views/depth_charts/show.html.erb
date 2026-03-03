@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @depth_chart %>
+
+<div>
+  <%= link_to "Back to depth charts", depth_charts_path %>
+
+  <%= button_to "Destroy this depth chart", @depth_chart, method: :delete %>
+</div>

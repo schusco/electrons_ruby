@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Teams" %>
+
+<h1>Current Teams</h1>
+
+<div id="teams">
+  <% @teams.each do |team| %>
+    <%= render team %>
+    <p>
+      <%= link_to "Show team", team %>
+      <%= link_to "Edit", edit_team_path(team)%>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New Team", new_team_path %>
+<%= button_to "Clear Team Records", clear_teams_path %>

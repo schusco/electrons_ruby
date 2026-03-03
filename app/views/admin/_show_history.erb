@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render "admin/history", history: @history %>
+
+<div>
+  <%= link_to "Edit this history", edit_history_path(@history) %> |
+  <%= link_to "Back to histories", history_index_path %>
+
+  <%= button_to "Destroy this history", history_path(@history), method: :delete %>
+</div>

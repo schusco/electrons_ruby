@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col col-auto mx-auto align-content-center">
+        <h2 class="mx-auto align-content-center " style="padding-left: 1rem !important"><%= @view.month_text %></h2>
+    </div>    
+</div>
+<div class="row w-100">
+    <div class="col">
+        <%= link_to "", schedule_by_month_path( year: @view.last_year, month: @view.last_month), class: "leftArrow" %>
+    </div>
+    <div class="col-10">
+        <div class="row mb-3">
+              <div class="col-2 " style="text-align:center">
+                  <%= link_to "March", schedule_by_month_path(year: @view.year, month: "03"), class: "monthLinks" %>
+              </div>
+              <div class="col-2 " style="text-align:center">
+                  <%= link_to "April", schedule_by_month_path(year: @view.year, month: "04"), class: "monthLinks" %>
+              </div>
+              <div class="col-2" style="text-align:center">
+                  <%= link_to "May", schedule_by_month_path(year: @view.year, month: "05"), class: "monthLinks" %>
+              </div>
+              <div class="col-2" style="text-align:center">
+                  <%= link_to "June", schedule_by_month_path(year: @view.year, month: "06"), class: "monthLinks" %>
+              </div>
+              <div class="col-2" style="text-align:center">
+                  <%= link_to "July", schedule_by_month_path(year: @view.year, month: "07"), class: "monthLinks" %>
+              </div>
+              <div class="col-2" style="text-align:center">
+                  <%= link_to "August", schedule_by_month_path(year: @view.year, month: "08"), class: "monthLinks" %>
+              </div>
+        </div>
+    </div>
+    <div class="col " style="text-align:right">
+        <%= link_to "", schedule_by_month_path( year: @view.next_year, month: @view.next_month), class: "rightArrow ms-auto me-n5" %>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-xs-12">
+        <table class="schedTable">
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+            <tr>
+            <% # 1. Fill in the leading blank days %>
+            <% @view.days_to_skip.times do %>
+            <td></td>
+            <% end %>
+
+            <% # 2. Fill in the actual days %>
+            <% (1..@view.days_in_month).each do |day_num| %>
+            <td class="<%= @view.cell_css(@view.days[day_num]) %>">
+                <div class="<%= @view.current_day_css(day_num) %>"><%= day_num %></div>
+                
+                <% # Accessing the 'ViewModel' data %>
+                <% @view.days[day_num][:games].each do |game| %>
+                <div class="game"><%= @view.game_text(game) %></div>
+                <% end %>
+                <% @view.days[day_num][:birthdays].each do |dob| %>
+                <div class="birthdayText"><%= dob.first_name %> <%= dob.last_name %>'s Birthday</div>
+                <% end %>
+                <% @view.days[day_num][:events].each do |event| %>
+                <div class="eventCss"><%= event.event %></div>
+                <% end %>
+            </td>
+
+            <% # 3. Start a new row every Saturday (index 6) %>
+            <% if (day_num + @view.days_to_skip) % 7 == 0 %>
+                </tr><tr>
+            <% end %>
+            <% end %>
+        </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <% @view.current_fields.each do |field| %>
+        <div class="col col-sm-3">
+            <a class="navlink" href="<%= field.Link %>" target="_blank"><%= "#{field.ShortName} - #{field.FieldName}" %></a>
+        </div>
+    <% end %>
+</div>

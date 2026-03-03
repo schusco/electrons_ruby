@@ -1,0 +1,38 @@
+<%= form_with(model: depth_chart) do |form| %>
+  <% if depth_chart.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(depth_chart.errors.count, "error") %> prohibited this depth_chart from being saved:</h2>
+
+      <ul>
+        <% depth_chart.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-sm-4">
+      <%= form.label :Position %>
+      <%= form.text_field :Position, class: "form-control" %>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-sm-4">
+    <%= form.label :Rank, style: "display: block" %>
+    <%= form.number_field :Rank, class: "form-control" %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <%= form.label :Player, "Select Player" %>
+    <%= form.collection_select :Player, Player.current.order(:last_name), :id, :short_name, { prompt: "Choose a Player" }, { class: "select2" } %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 mt-2">
+    <%= form.submit %>
+  </div>
+</div>
+  
+<% end %>

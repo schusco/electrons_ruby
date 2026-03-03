@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Histories" %>
+
+<div class="row">
+    <div class="col-sm-6">
+        <%= render "history_item", data: @view.franchise_history, editable: false %>
+        <%= render "history_item", data: @view.manager_history, total: @view.manager_total, playoffs: @view.manager_playoff_records, editable: false %>
+        <% if admin? %>
+          <%= link_to "New Manager history", new_manager_history_path %>
+        <% end %>
+        <%= render "history_item", data: @view.playoff_history, editable: true %>
+        <% if admin? %>
+          <%= link_to "New Playoff history", new_playoff_history_path %>
+        <% end %>
+    </div>
+    <div class="col-sm-6">
+        <%= render "history_item", data: @view.stadium_history, editable: false %>
+        <%= render "history_item", data: @view.retired_numbers, editable: false %>
+        <%= render "history_item", data: @view.results_history, current: @view.current_season_record, editable: true %>
+        <% if admin? %>
+          <%= link_to "New Results history", new_results_history_path %>
+        <% end %>
+    </div>
+</div>
+
+
