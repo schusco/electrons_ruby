@@ -23,6 +23,6 @@ class StatisticsController < ApplicationController
   end
   private
     def get_stats_by_year
-      @view = StatisticsView.new(params[:id].to_i, params[:playoffs].present?)
+      @view = StatisticsView.new(params[:id], params[:playoffs].present?)
     end
 end

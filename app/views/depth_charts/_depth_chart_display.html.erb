@@ -1,6 +1,8 @@
 <div id="depth_charts">
-  <% data.each do |depth_chart| %>
-    <h5><%= depth_chart.player&.short_name_last_first %></h5>    
+  <% if data %>
+    <% data.each do |depth_chart| %>
+      <h5><%= depth_chart.player&.short_name_last_first %></h5>    
+    <% end %>
   <% end %>
   <p>
     <% if admin? %>

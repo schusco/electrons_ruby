@@ -2,6 +2,7 @@ class StatisticsView
     def initialize(year, playoffs)
       @year = year.to_i if year.present?
       @year ||= Time.current.year
+      puts(@year)
       @playoffs = playoffs
     end
 
