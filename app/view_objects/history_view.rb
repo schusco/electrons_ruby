@@ -31,7 +31,7 @@ class HistoryView
     results_history = ResultsHistory.all.map { |h| ResultsHistoryPresenter.wrap(h) }
     current_year_row = results_history.find { |h| h.year_start == Time.current.year.to_s }
     if current_year_row.present? && current_season_record.present?
-      current_year_row.history.data = current_season_record
+      current_year_row.history.data = current_season_record.record
     end
     results_history
   end
