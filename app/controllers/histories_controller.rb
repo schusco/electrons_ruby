@@ -2,6 +2,7 @@ class HistoriesController < ApplicationController
   # GET /histories or /histories.json
   def index
     @view = HistoryView.new
+    puts("2026 Record #{SeasonRecord.current.record}")
   end
 
   private

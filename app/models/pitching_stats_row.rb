@@ -22,7 +22,16 @@ PitchingStatsRow = Data.define(:name, :year, :wins, :losses, :saves, :saves_oppo
     bbp9=((bb.to_f / ip) * 7).round(2)
     format_stat(bbp9)
   end
-
+  def innings
+    return ip if ip.nil?
+    whole_innings = ip.to_i
+    fractional_innings = ((ip - whole_innings) * 3).round
+    if fractional_innings == 3
+      whole_innings += 1
+      fractional_innings = 0
+    end
+    "#{whole_innings}.#{fractional_innings}"
+  end
   def self.from(source)
     if source.is_a?(Hash)
       new(

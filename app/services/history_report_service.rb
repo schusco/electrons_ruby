@@ -15,10 +15,6 @@ class HistoryReportService
   end
 
   def self.current_season_record
-    sql = <<~SQL
-    SELECT case when T > 0 then concat_ws('-',W,L,T) else concat_ws('-',W,L) end as record FROM seasonrecords s
-      where Year=year(current_date())
-    SQL
-    ActiveRecord::Base.connection.select_one(sql)
+    SeasonRecord.current.record
   end
 end

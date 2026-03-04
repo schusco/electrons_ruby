@@ -1,20 +1,4 @@
 module ApplicationHelper
-  def normalize_innings(ip)
-    return ip if ip.nil?
-    whole_innings = ip.to_i
-    fractional_innings = ((ip - whole_innings) * 3).round
-    if fractional_innings == 3
-      whole_innings += 1
-      fractional_innings = 0
-    end
-    "#{whole_innings}.#{fractional_innings}"
-  end
-  def stat_label(display)
-    if display == "Player"
-      return "Year"
-    end
-    "Player"
-  end
   def carousel(path)
     files = Dir.glob("#{path}/*")  # Get all files in the folder
     return "" if files.empty?

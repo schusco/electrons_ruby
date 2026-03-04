@@ -63,7 +63,7 @@
           <td><%= stat.games %></td>
         <% end %>
         <td><%= stat.gs %></td>
-        <td><%= normalize_innings(stat.ip) %></td>
+        <td><%= stat.innings %></td>
         <td><%= stat.h %></td>
         <% if all %>
           <td><%= stat.r %></td>
@@ -104,7 +104,7 @@
           <th><%= totals.games %></th>
         <% end %>
         <th><%= totals.gs %></th>
-        <th><%= normalize_innings(totals.ip) %></th>
+        <th><%= totals.innings %></th>
         <th><%= totals.h %></th>
         <% if all %>
           <th><%= totals.r %></th>

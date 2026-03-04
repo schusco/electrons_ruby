@@ -184,7 +184,7 @@ SUM(CASE WHEN Decision = 'S' or Decision='BS,L' or Decision='BS,W' THEN 1 ELSE 0
       row.cells[0].style = first_header_style
       pitching_stats.each do |stat|
         sheet.add_row [
-          stat.name, stat.wins, stat.losses, stat.saves, stat.saves_opportunities, stat.games, stat.gs, stat.ip, stat.h, stat.r,
+          stat.name, stat.wins, stat.losses, stat.saves, stat.saves_opportunities, stat.games, stat.gs, stat.innings, stat.h, stat.r,
           stat.er, stat.bb, stat.k, stat.hb, stat.hr, stat.bf, stat.cg, stat.era, stat.whip, stat.k_per_nine, stat.bb_per_nine
         ], style: [ nil ] +  [ center_style ]  * 6 + [ two_decimal_style ] +  [ center_style ] * 9 +  [ two_decimal_style ] * 4
         end
