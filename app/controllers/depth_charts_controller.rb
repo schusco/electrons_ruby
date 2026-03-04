@@ -41,7 +41,6 @@ class DepthChartsController < ApplicationController
 
   # PATCH/PUT /depth_charts/1 or /depth_charts/1.json
   def update_position
-    puts "DEBUG: Params received: #{params[:depth_charts].inspect}"
     updates = params.require(:depth_charts).to_unsafe_h
     # Convert empty strings to nil
     ActiveRecord::Base.transaction do

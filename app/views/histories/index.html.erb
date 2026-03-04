@@ -17,7 +17,7 @@
     <div class="col-sm-6">
         <%= render "history_item", data: @view.stadium_history, editable: false %>
         <%= render "history_item", data: @view.retired_numbers, editable: false %>
-        <%= render "history_item", data: @view.results_history, current: @view.current_season_record, editable: true %>
+        <%= render "history_item", data: @view.results_history, editable: true %>
         <% if admin? %>
           <%= link_to "New Results history", new_results_history_path %>
         <% end %>

@@ -10,9 +10,6 @@ class RecordsView
       @scope = scope
       @active = type || "hit"
       data = type == "pitch" ? filter_pitching : filter_hitting
-      puts("category index: #{THRESHOLD_CATEGORIES.index(@category)}")
-      puts(threshold)
-      puts(threshold_category)
 
       if data.any?
         data = data.sort_by { |r| r.public_send(category.first) }

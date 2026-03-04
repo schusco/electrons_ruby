@@ -52,10 +52,8 @@ class StatisticsReportService
     pitching_stats_by_year = PitchingStat.joins(:gameschedule).joins(:player)
     .where(gameschedule: { Game_Date: Date.new(year).beginning_of_year..Date.new(year).end_of_year })
   if playoffs
-    puts("Playoff value: #{playoffs}, outputting playoffs = true")
     pitching_stats_by_year = pitching_stats_by_year.where(gameschedule: { Playoff: true })
   else
-    puts("Playoff value: #{playoffs}, outputting playoffs = false")
     pitching_stats_by_year = pitching_stats_by_year.where(gameschedule: { Playoff: false })
   end
   pitching_stats_by_year = pitching_stats_by_year
@@ -159,12 +157,8 @@ SUM(CASE WHEN Decision = 'S' or Decision='BS,L' or Decision='BS,W' THEN 1 ELSE 0
     pitching_stats_by_year.map { |row| PitchingStatsRow.from(row) }
   end
   def self.export(year, playoffs)
-    puts(playoffs)
     pitching_stats = self.season_pitching_stats(year, playoffs)
     hitting_stats = self.season_hitting_stats(year, playoffs)
-    puts(pitching_stats.count)
-    puts(hitting_stats.count)
-    puts("Year: #{year}, Playoffs: #{playoffs}")
     package = ::Axlsx::Package.new
     workbook = package.workbook
 

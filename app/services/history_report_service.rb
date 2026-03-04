@@ -15,6 +15,6 @@ class HistoryReportService
   end
 
   def self.current_season_record
-    SeasonRecord.current.record
+    SeasonRecord.current
   end
 end
