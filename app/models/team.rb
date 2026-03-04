@@ -24,11 +24,6 @@ class Team < ApplicationRecord
     (wins.to_i * 2) + ties.to_i - (forfeits.to_i * 2)
   end
   def logo_path
-    file_name= "logos/nextOuting_#{name.gsub(/\s+/, '').downcase}.png"
-    if Rails.root.join("app/assets/images", file_name).exist?
-        file_name
-    else
-        "logos/default.png"
-    end
+    "/images/logos/nextOuting_#{name.gsub(/\s+/, '').downcase}.png"
   end
 end

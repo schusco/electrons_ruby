@@ -11,12 +11,12 @@ class Gameschedule < ApplicationRecord
   has_many :innings, foreign_key: "GameId", primary_key: "Game_ID", dependent: :destroy
 
   def home_logo
-    hv == "V" ? "logos/nextOuting_#{home_team.gsub(/\s+/, '').downcase}.png" : "logos/nextOuting_electrons.png"
+    get_path("H")
   end
 
   # Returns the path to the away logo asset
   def away_logo
-    hv == "H" ? "logos/nextOuting_#{away_team.gsub(/\s+/, '').downcase}.png" : "logos/nextOuting_electrons.png"
+    get_path("V")
   end
 
   def home_team
@@ -42,5 +42,15 @@ class Gameschedule < ApplicationRecord
     max_inning = innings.maximum(:Inning) || 0
     # Always show at least 7
     [ max_inning, 7 ].max
+  end
+
+  private
+
+  def get_path(home_away)
+    if home_away == hv
+      "/images/logos/nextOuting_electrons.png"
+    else
+      "/images/logos/nextOuting_#{opponent.gsub(/\s+/, '').downcase}.png"
+    end
   end
 end

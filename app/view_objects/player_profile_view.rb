@@ -20,11 +20,13 @@ class PlayerProfileView
     StatisticsReportService.career_hitting_totals(@player)
   end
   def player_photo_path
-    file_name= "players/#{@player.last_name}#{@player.first_name}_Magnified.png"
-    if Rails.root.join("app/assets/images", file_name).exist?
+    file_name= "/images/players/#{@player.last_name.gsub(/\s+/, '')}#{@player.first_name.gsub(/\s+/, '')}_Magnified.png"
+    path = File.join(Rails.public_path, file_name)
+    puts(path)
+    if File.exist?(path)
         file_name
     else
-        "players/NotAvailable.png"
+        "/images/players/NotAvailable.png"
     end
   end
 end
