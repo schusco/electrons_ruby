@@ -13,7 +13,6 @@ class CreateGameschedules < ActiveRecord::Migration[8.1]
       t.string :Notes, limit: 145
       t.integer :LocationId, unsigned: true, null: false
       t.text :GameFile, limit: 16.megabytes - 1
-      t.timestamps
     end
       add_index :gameschedule, :gamedate, unique: true
   end
