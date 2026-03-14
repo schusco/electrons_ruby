@@ -1,0 +1,78 @@
+<table class="scoreTable @alignCss" style="width:100%">
+    <tr>
+        <td colspan="5">
+            <p class="teamName"><%= image_tag view_data.image, height: 35 %> <span style="margin-left:5px;"><%= view_data.team %></span></p>
+        </td>
+    </tr>
+    <tr>
+        <th style=" min-width:130px;text-align:left">Hitters</th>
+        <th style="width: 30px;text-align: center">AB</th>
+        <th style="width:30px;text-align:center">R</th>
+        <th style="width: 30px;text-align: center">H</th>
+        <th style="width: 30px;text-align: center">RBI</th>
+    </tr>
+    <% view_data.hitting_stats.each do |stat| %>
+        <tr style="height:26px" >
+            <td style="text-align:left"><%= stat.PlayerDisplay %><span class="posString"><%= stat.Player&.Position&.PositionString || "" %></span></td>
+            <td style="text-align:center"><%= stat.AB %></td>
+            <td style="text-align:center"><%= stat.Runs %></td>
+            <td style="text-align:center"><%= stat.H %></td>
+            <td style="text-align:center"><%= stat.RBI %></td>
+        </tr>
+    <% end %>
+</table>
+<table class="statData" style="margin-top:20px;width:100%">
+    <tr>
+        <th>Hitting</th>
+    </tr>
+    <%= render "stat_display", data: view_data.hitting_stats, label: "2B", attribute: :Doubles, season_data: view_data.season_data.to_h { |s| [ s.number, s.doubles ] } %>
+    <%= render "stat_display", data: view_data.hitting_stats, label: "3B", attribute: :Triples, season_data: view_data.season_data.to_h { |s| [ s.number, s.triples ] } %>
+    <%= render "stat_display", data: view_data.hitting_stats, label: "HR", attribute: :HR, season_data: view_data.season_data.to_h { |s| [ s.number, s.hr ] } %>
+    <%= render "stat_display", data: view_data.hitting_stats, label: "RBI", attribute: :RBI, season_data: view_data.season_data.to_h { |s| [ s.number, s.rbi ] } %>
+    <tr style="height:26px">
+        <td>
+            <span><span style="white-space: nowrap"><strong>RISP H/AB: </strong></span>        
+             <span style="white-space:nowrap"><%= "#{view_data.risp&.hits}/#{view_data.risp&.abs}" %></span></span>        
+        </td>
+    </tr>
+</table>
+    <table class="statData" style="margin-top:20px;width:100%">
+        <tr>
+            <th>Base Running</th>
+        </tr>
+        <%= render "stat_display", data: view_data.hitting_stats, label: "SB", attribute: :SB, season_data: view_data.season_data.to_h { |s| [ s.number, s.sb ] } %>
+        <%= render "stat_display", data: view_data.hitting_stats, label: "CS", attribute: :CS, season_data: view_data.season_data.to_h { |s| [ s.number, s.cs ] } %>
+    </table>
+<table class="scoreTable" style="width:100%;margin-top:20px">
+    <tr>
+        <th style=" min-width:150px;text-align:left">Pitchers</th>
+        <th style="width: 30px;text-align: center">IP</th>
+        <th style="width:30px;text-align:center">R</th>
+        <th style="width: 30px;text-align: center">H</th>
+        <th style="width: 30px;text-align: center">K</th>
+    </tr>
+    <% view_data.pitching_stats.each do |stat| %>
+        <tr style="height:26px">
+            <td style="text-align:left"><%= stat.PitcherDisplay %></td>
+            <td style="text-align:center"><%= stat.IP %></td>
+            <td style="text-align:center"><%= stat.R %></td>
+            <td style="text-align:center"><%= stat.H %></td>
+            <td style="text-align:center"><%= stat.K %></td>
+        </tr>
+    <% end %>
+</table>
+<table class="statData" style="margin-top:20px;width:100%">
+    <tr>
+        <th>Pitching</th>
+    </tr>
+    <%= render "stat_display", data: view_data.pitching_stats, label: "Pitches", attribute: :Pitches %>
+    <%= render "stat_display", data: view_data.pitching_stats, label: "Batters Faced", attribute: :BF %>
+    <tr style="height:26px">
+        <td>
+            <span><span style="white-space: nowrap"><strong>Ground Balls - Fly Balls: </strong></span>
+        <% view_data.pitching_stats.each do |p| %>        
+             <span style="white-space:nowrap"><%= "#{p.PlayerName} #{p.GroundOuts} - #{p.FlyOuts}" %></span></span>        
+        <% end %>
+        </td>
+    </tr>
+</table>

@@ -19,8 +19,8 @@ class Player < ApplicationRecord
   has_many :awards, foreign_key: "Player_id", dependent: :destroy
   has_many :hitting_stats, foreign_key: "Player_ID", dependent: :destroy
   has_many :pitching_stats, foreign_key: "Player_ID", dependent: :destroy
-  enum :bats, { L: "L", R: "R", S: "S" }, prefix: true
-  enum :throws, { L: "L", R: "R" }, prefix: true
+  enum :bats, { left: "L", right: "R", switch: "S" }, prefix: true
+  enum :throws, { left: "L", right: "R" }, prefix: true
   POSITIONS = { P: "P", C: "C", "1B": "1B", "2B": "2B", "3B": "3B", SS: "SS", OF: "OF", IF: "IF" }.freeze
   enum :pos1, POSITIONS, prefix: true
   enum :pos2, POSITIONS, prefix: true
@@ -39,24 +39,14 @@ class Player < ApplicationRecord
   def short_name_last_first
     "#{last_name}, #{first_name[0]}."
   end
-  def height_string
-    "#{height/12}' #{height%12}\""
+  def age_in(year)
+    year > dob.year ? (year - dob.year).to_s : ""
   end
-  def weight_string
-    "#{weight} lbs."
+  def height_string
+    "#{height / 12}' #{height % 12}\""
   end
   def position_string
     [ pos1, pos2, pos3 ].compact_blank.join(", ")
-  end
-  def year_display
-    if current
-      "Current Player"
-    else
-      years = []
-      years << "Debut: #{dob.year}" if dob.present?
-      years << "Final: #{dob.year + 20}" if dob.present? # Assuming a 20-year career for display purposes
-      years.join(" | ")
-    end
   end
   def years_played
     hitting_years = hitting_stats.joins(:gameschedule).distinct.pluck("YEAR(gameschedule.Game_Date)")

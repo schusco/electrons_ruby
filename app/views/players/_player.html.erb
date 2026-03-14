@@ -39,11 +39,11 @@
             </div>
             <div class="row mt-2">
                 <div class="col col-sm-4"><div><%= content_tag :label, "Positions: " %><span style="margin-left:10px"><%= view.position_string %></span></div></div>
-                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:bats) %><span style="margin-left:10px"><%= view.bats %></span></div></div>
-                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:throws) %><span style="margin-left:10px"><%= view.throws %></span></div></div>
+                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:bats) %><span style="margin-left:10px"><%= view.bats.capitalize %></span></div></div>
+                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:throws) %><span style="margin-left:10px"><%= view.throws.capitalize %></span></div></div>
             </div>
             <div class="row mt-2">
-                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:dob) %><span style="margin-left:10px"><%= view.dob.strftime("%m/%d/%Y") %></span></div></div>
+                <div class="col col-sm-4"><div><%= Player.human_attribute_name(:dob) %><span style="margin-left:10px"><%= view.dob&.utc&.strftime("%-m/%-d/%Y") %></span></div></div>
                 <div class="col col-sm-4"><div><%= Player.human_attribute_name(:divorces) %><span style="margin-left:10px"><%= view.divorces %></span></div></div>
                 <div class="col col-sm-4">&nbsp;</div>
             </div>

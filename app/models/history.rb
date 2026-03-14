@@ -15,6 +15,7 @@ class History < ApplicationRecord
     when "Result" then ResultsHistory
     when "Manage" then ManagerHistory
     when "Retired" then RetiredNumberHistory
+    when "Player" then PlayerHistory
     else
       super
     end

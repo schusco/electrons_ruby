@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_27_163412) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_05_194801) do
   create_table "awards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "Player_id"
     t.string "award"
@@ -41,8 +41,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_163412) do
     t.boolean "Playoff", default: false, null: false
     t.integer "SP", default: 0, null: false
     t.boolean "Wood", default: false, null: false
-    t.datetime "created_at", default: -> { "(curdate())" }, null: false
-    t.datetime "updated_at", default: -> { "(curdate())" }, null: false
     t.index ["Game_Date"], name: "index_gameschedules_on_gamedate", unique: true
     t.index ["LocationId"], name: "index_gameschedule_on_LocationId"
     t.index ["Manager"], name: "index_gameschedule_on_Manager"
@@ -100,6 +98,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_163412) do
     t.string "GoogleName", limit: 100, null: false
     t.string "Link", null: false
     t.string "ShortName", limit: 2, null: false
+  end
+
+  create_table "notable_players", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "date"
+    t.text "first_name"
+    t.text "last_name"
   end
 
   create_table "pitchingstats", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

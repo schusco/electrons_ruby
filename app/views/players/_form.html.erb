@@ -10,98 +10,98 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :Player_ID, style: "display: block" %>
-    <%= form.number_field :Player_ID %>
+<div class="col-sm-3" >
+  <div>    
+    <%= form.hidden_field :Player_ID, class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :First_Name, style: "display: block" %>
-    <%= form.text_field :First_Name %>
+    <%= form.label :First_Name, class: "d-block" %>
+    <%= form.text_field :First_Name, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Last_Name, style: "display: block" %>
-    <%= form.text_field :Last_Name %>
+    <%= form.label :Last_Name, class: "d-block" %>
+    <%= form.text_field :Last_Name, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Current, style: "display: block" %>
+    <%= form.label :Current, class: "d-block" %>
     <%= form.checkbox :Current %>
   </div>
 
   <div>
-    <%= form.label :Bats, style: "display: block" %>
-    <%= form.select :Bats, options_for_select(Player.bats.keys.map { |key| [key, key] }) %>
+    <%= form.label :Bats %>
+    <%= form.select :Bats, Player.bats.keys.map { |k| [k.capitalize,k] }, { prompt: "-- Select --"}, { class: "form-select" } %>
   </div>
 
   <div>
-    <%= form.label :Throws, style: "display: block" %>
-    <%= form.select :Throws, options_for_select(Player.throws.keys.map { |key| [key, key] }) %>
+    <%= form.label :Throws, class: "d-block" %>
+    <%= form.select :Throws, Player.throws.keys.map { |k| [k.capitalize, k] }, { prompt: "-- Select --"}, { class: "form-select" } %>
   </div>
 
   <div>
-    <%= form.label :POS1, style: "display: block" %>
-    <%= form.select :POS1, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }) %>
+    <%= form.label :POS1, class: "d-block" %>
+    <%= form.select :POS1, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }),{ prompt: "-- Select --"}, { class: "form-select" } %>
   </div>
 
   <div>
-    <%= form.label :POS2, style: "display: block" %>
-    <%= form.select :POS2, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }) %>
+    <%= form.label :POS2, class: "d-block" %>
+    <%= form.select :POS2, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }), { prompt: "-- Select --"}, { class: "form-select" } %>
   </div>
 
   <div>
-    <%= form.label :POS3, style: "display: block" %>
-    <%= form.select :POS3, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }) %>
+    <%= form.label :POS3, class: "d-block" %>
+    <%= form.select :POS3, options_for_select(Player::POSITIONS.map { |key, value| [key, key] }), { prompt: "-- Select --"}, { class: "form-select" } %>
   </div>
 
   <div>
-    <%= form.label :Nickname, style: "display: block" %>
-    <%= form.text_field :Nickname %>
+    <%= form.label :Nickname, class: "d-block" %>
+    <%= form.text_field :Nickname, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Hometown, style: "display: block" %>
-    <%= form.text_field :Hometown %>
+    <%= form.label :Hometown, class: "d-block" %>
+    <%= form.text_field :Hometown, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Divorces, style: "display: block" %>
-    <%= form.number_field :Divorces %>
+    <%= form.label :Divorces, class: "d-block" %>
+    <%= form.number_field :Divorces, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :DOB, style: "display: block" %>
-    <%= form.datetime_field :DOB %>
+    <%= form.label :DOB, class: "d-block" %>
+    <%= form.date_field :DOB, value: player.DOB&.utc&.to_date, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Height, style: "display: block" %>
-    <%= form.number_field :Height %>
+    <%= form.label :Height, class: "d-block" %>
+    <%= form.number_field :Height, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Weight, style: "display: block" %>
-    <%= form.number_field :Weight %>
+    <%= form.label :Weight, class: "d-block" %>
+    <%= form.number_field :Weight, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :Image, style: "display: block" %>
+    <%= form.label :Image, class: "d-block" %>
     <%= form.checkbox :Image %>
   </div>
 
   <div>
-    <%= form.label :uniform, style: "display: block" %>
-    <%= form.number_field :uniform %>
+    <%= form.label :uniform, class: "d-block" %>
+    <%= form.number_field :uniform, class: "form-control"  %>
   </div>
 
   <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
+    <%= form.label :email, class: "d-block" %>
+    <%= form.text_field :email, class: "form-control"  %>
   </div>
 
-  <div>
+  <div class="mt-2">
     <%= form.submit %>
   </div>
+</div>
 <% end %>

@@ -1,7 +1,37 @@
 <div id="<%= dom_id gameschedule %>">
   <div>
-    <strong>Gamedate:</strong>
+    <strong>Game Date:</strong>
     <%= gameschedule.Game_Date %>
+  </div>
+
+  <div>
+    <strong>Opponent:</strong>
+    <%= gameschedule.Opponent %>
+  </div>
+
+  <div>
+    <strong>Home/Visitor:</strong>
+    <%= gameschedule.HV %>
+  </div>
+
+  <div>
+    <strong>Game Type:</strong>
+    <%= gameschedule.game_type %>
+  </div>
+
+  <div>
+    <strong>Manager:</strong>
+    <%= gameschedule.Manager %>
+  </div>
+
+  <div>
+    <strong>Game Notes:</strong>
+    <%= gameschedule.Notes %>
+  </div>
+
+  <div>
+    <strong>Location:</strong>
+    <%= gameschedule.location.FieldName %>
   </div>
 
 </div>

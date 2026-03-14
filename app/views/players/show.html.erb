@@ -4,8 +4,9 @@
 
 <div>
   <% if admin? %>
-  <%= link_to "Edit this player", edit_player_path(@player) %> |
-  <%= link_to "Add Award", new_player_award_path(@player) %>
+  <%= link_to "Add Award", new_player_award_path(@view.player) %><br/>
+  <%= link_to "Edit this player", edit_player_path(@view.player) %> |
+  
   <% end %>
   <%= link_to "Back to players", players_path %>
   

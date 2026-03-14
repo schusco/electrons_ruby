@@ -1,0 +1,46 @@
+<table class="scoreTable wide"  >
+    <thead>
+        <tr>
+            <th class=" alignLeft" >Hitters</th>
+            <th  >AB</th>
+            <th  >R</th>
+            <th  >H</th>
+            <th  >RBI</th>
+            <th  >2B</th>
+            <th  >3B</th>
+            <th  >HR</th>
+            <th  >BB</th>
+            <th  >K</th>
+            <th  >HBP</th>
+            <th  >SB</th>
+            <th  >CS</th>
+            <th class=" alignRight"  >AVG</th>
+            <th class=" alignRight"  >OBP</th>
+            <th class=" alignRight"  >SLG</th>
+            <th class=" alignRight"  >OPS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.each do |s| %>
+        <tr>
+            <td class=" alignLeft"><%= s.PlayerName %></td>
+            <td><%= s.AB %></td>
+            <td><%= s.Runs %></td>
+            <td><%= s.H %></td>
+            <td><%= s.RBI %></td>
+            <td><%= s.Doubles %></td>
+            <td><%= s.Triples %></td>
+            <td><%= s.HR %></td>
+            <td><%= s.BB %></td>
+            <td><%= s.K %></td>
+            <td><%= s.HBP %></td>
+            <td><%= s.SB %></td>
+            <td><%= s.CS %></td>
+            <td class=" alignRight"  ><%= s.BaFormatted %></td>
+            <td class=" alignRight"  ><%= s.SlgFormatted %></td>
+            <td class=" alignRight"  ><%= s.ObpFormatted %></td>
+            <td class=" alignRight"  ><%= s.OpsFormatted %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

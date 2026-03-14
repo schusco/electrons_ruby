@@ -18,6 +18,6 @@ class Admin::PlayoffHistoriesController < Admin::BaseHistoriesController
   private
 
   def playoff_history_params
-    params.require(:playoff_history).permit(:year_start, :year_end, :finish)
+    params.require(:playoff_history).permit(:YearStart, :Finish)
   end
 end

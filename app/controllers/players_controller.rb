@@ -32,12 +32,12 @@ class PlayersController < ApplicationController
   # PATCH/PUT /players/1 or /players/1.json
   def update
     respond_to do |format|
-      if @player.update(player_params)
-        format.html { redirect_to @player, notice: "Player was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @player }
+      if @view.player.update(player_params)
+        format.html { redirect_to @view.player, notice: "Player was successfully updated.", status: :see_other }
+        format.json { render :show, status: :ok, location: @view.player }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
+        format.json { render json: @view.player.errors, status: :unprocessable_entity }
       end
     end
   end

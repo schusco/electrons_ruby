@@ -10,13 +10,51 @@
       </ul>
     </div>
   <% end %>
-
+<div class="col-sm-4">
   <div>
-    <%= form.label :gamedate, style: "display: block" %>
-    <%= form.datetime_field :gamedate %>
+    <%= form.label :game_date, style: "display: block" %>
+    <%= form.datetime_field :game_date, class: "form-control" %>
+  </div>
+
+  
+  <div>
+    <%= form.label :opponent, style: "display:block" %>
+    <%= form.text_field :opponent, class: "form-control" %>
   </div>
 
   <div>
+    <%= form.label :hv, style: "display:block" %>
+    <%= form.select :HV, Gameschedule.HVs.keys.map { |k| [k.capitalize,k] }, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :Playoff, style: "display:block" %>
+    <%= form.check_box :Playoff %>
+  </div>
+
+  <div>
+    <%= form.label :Finals, style: "display:block" %>
+    <%= form.check_box :Finals %>
+  </div>
+
+  <div>
+    <%= form.label :Wood, style: "display:block" %>
+    <%= form.check_box :Wood %>
+  </div>
+  <div>
+    <%= form.label :Manager, style: "display:block" %>
+    <%= form.text_field :Manager, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.label :notes, style: "display:block" %>
+    <%= form.text_field :notes, class: "form-control" %>
+  </div>
+  <div>
+    <%= form.label :location, style: "display:block" %>
+    <%= form.collection_select :LocationId, Location.active, :Id, :field_name, { prompt: "Choose Field" }, { class: "form-control select2" } %>
+  </div>
+  <div class="mt-2">
     <%= form.submit %>
   </div>
+</div>
 <% end %>

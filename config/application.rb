@@ -22,6 +22,7 @@ module Electrons
     # in config/environments, which are processed later.
     #
     config.time_zone = "Central Time (US & Canada)"
+    config.settings = config_for(:settings)
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

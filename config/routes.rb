@@ -11,7 +11,13 @@ Rails.application.routes.draw do
   resources :players do
     resources :awards, shallow: true
   end
-  resources :gameschedules
+  resources :gameschedules do
+    collection do
+      get "get_id", to: "gameschedules#get_id", as: "get_id"
+      get ":id/live", to: "gameschedules#live", as: "live_game"
+      get ":id/last_updated", to: "gameschedules#last_updated", as: :game_last_updated
+    end
+  end
   resources :teams do
     collection do
       post "clear"
@@ -22,6 +28,7 @@ Rails.application.routes.draw do
   # URL: /history/results/new  -> Controller: Admin::ResultsHistoriesController
   resources :results_histories, path: "history/results", only: [ :new, :create, :show ]
   resources :manager_histories, path: "history/manager", only: [ :new, :create, :show ]
+  resources :player_histories, path: "history/player", only: [ :new, :create, :show ]
   # URL: /history/playoffs/:id -> Controller: Admin::PlayoffHistoriesController
   resources :playoff_histories, path: "history/playoffs", only: [ :new, :create, :show ]
   resources :histories, controller: "base_histories", only: [ :edit, :update, :destroy ] do

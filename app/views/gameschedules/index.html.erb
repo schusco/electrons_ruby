@@ -58,10 +58,13 @@
                 
                 <% # Accessing the 'ViewModel' data %>
                 <% @view.days[day_num][:games].each do |game| %>
-                <div class="game"><%= @view.game_text(game) %></div>
+                <div class="game"><%= @view.game_text(game) %>
+                <% if admin? %><%= link_to "Edit", edit_gameschedule_path(game.Game_ID)%>
+                <% end %>
+                </div>
                 <% end %>
                 <% @view.days[day_num][:birthdays].each do |dob| %>
-                <div class="birthdayText"><%= dob.first_name %> <%= dob.last_name %>'s Birthday</div>
+                <div class="birthdayText"><%= @view.birthday_text(dob) %></div>
                 <% end %>
                 <% @view.days[day_num][:events].each do |event| %>
                 <div class="eventCss"><%= event.event %></div>

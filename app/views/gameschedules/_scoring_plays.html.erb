@@ -1,0 +1,35 @@
+<% data.sort.reverse.each do |inning, plays| %>
+<table class="scoringplay">
+    <thead>
+        <tr>
+            <th colspan="2">
+                <%= inning.ordinalize %> Inning
+            </th>
+            <th>
+                <%= image_tag away_logo, height: 25 %>
+            </th>
+            <th>
+                <%= image_tag home_logo, height: 25 %>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% plays.reverse.each do |play| %>
+        <tr>
+            <td width="10%">
+                <% if home_logo.include?(play.Team.downcase) %>
+                    <%= image_tag home_logo, height: 35 %>
+                <% else %>
+                    <%= image_tag away_logo, height: 35 %>
+                <% end %>
+                </td>
+                <td width="80%">
+                    <%= play.Play %>
+                </td>
+                <td width="5%" style="text-align:center"><%= play.AwayScore %></td>
+                <td width="5%" style="text-align:center"><%= play.HomeScore %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<% end %>

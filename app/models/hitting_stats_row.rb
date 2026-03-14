@@ -1,4 +1,4 @@
-HittingStatsRow = Data.define(:name, :year, :games, :ab, :r, :h, :doubles, :triples, :hr, :rbi, :bb, :hbp, :k, :sb, :cs, :sac, :sf, :lob, :player_id, :playoff) do
+HittingStatsRow = Data.define(:name, :year, :games, :ab, :r, :h, :doubles, :triples, :hr, :rbi, :bb, :hbp, :k, :sb, :cs, :sac, :sf, :lob, :player_id, :playoff, :number) do
   def ba
     return 0 if ab.zero?
     format_stat(h.to_f / ab)
@@ -36,7 +36,8 @@ HittingStatsRow = Data.define(:name, :year, :games, :ab, :r, :h, :doubles, :trip
         source["sf"].to_i,
         source["lob"].to_i,
         source["Player_ID"],
-        source["playoff"]
+        source["playoff"],
+        source["number"]
       )
     else
       new(
@@ -59,7 +60,8 @@ HittingStatsRow = Data.define(:name, :year, :games, :ab, :r, :h, :doubles, :trip
         source.sacrifice_flies.to_i,
         source.left_on_base.to_i,
         source.Player_ID,
-        source.gameschedule.Playoff
+        source.gameschedule.Playoff,
+        source.player.uniform
       )
     end
   end

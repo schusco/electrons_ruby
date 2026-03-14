@@ -41,4 +41,7 @@ module ApplicationHelper
       indicators + items + controls
     end
   end
+  def live_announcement
+   AnnouncementProvider.text
+  end
 end

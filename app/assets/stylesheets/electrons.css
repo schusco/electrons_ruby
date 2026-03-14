@@ -76,6 +76,14 @@ a.headerLink {
     font-family: 'Brush Script MT';
     border-radius: 10px;
 }
+.menuStyleR {
+    background-color: #800000;
+    font-size: 2em;
+    margin: auto;
+    color: white !important;
+    font-style: italic;
+    font-family: 'Brush Script MT';
+}
 
 li.menuStyle:hover {
     background-color: #888888;
@@ -165,9 +173,22 @@ table.scoringplay {
     table.scoringplay tbody td {
         padding-top: 3px;
     }
+.pulse-dot {
+  height: 10px;
+  width: 10px;
+  background-color: #28a745;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+  animation: pulse 2s infinite;
+}
 
-.scoreStyle {
-    padding-top: 12px;
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+.scoreStyle {    
     color: white;
 }
 
@@ -541,11 +562,11 @@ a.nextOutingText {
 .tronNextouting {
     background: #668466;
     min-height: 330px;
-    background-image: url("/images/_fieldimg.png");
+    background-image: url("_fieldimg.png");
     background-repeat: repeat-y;
     background-size: 100%;
 }
-.teamName
+span.teamName
 {
     display: inline-block;
     width: 100px;
@@ -553,7 +574,7 @@ a.nextOutingText {
     text-align: left;
 }
 .depthChartImg {
-    background-image: url("/images/depthchart_field_larger.jpg");
+    background-image: url("depthchart_field_larger.jpg");
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -569,7 +590,7 @@ a.nextOutingText {
     padding: 4rem 2rem;
 }
 div.fieldImg {
-    background-image: url('images/baseballDiamond.gif');
+    background-image: url('baseballDiamond.gif');
     height: 250px;
     width: 250px;
 }
@@ -685,20 +706,20 @@ input.is-invalid {
 
 .header {
     text-decoration: underline;
-    background-image: url(sorter/bg.gif);
+    background-image: url(bg.gif);
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 20px;
 }
 
 .headerSortUp {
-    background-image: url(sorter/asc.gif);
+    background-image: url(asc.gif);
     background-repeat: no-repeat;
     background-position: right center;
 }
 
 .headerSortDown {
-    background-image: url(sorter/desc.gif);
+    background-image: url(desc.gif);
     background-repeat: no-repeat;
     background-position: right center;
 }

@@ -13,6 +13,10 @@
         <% if admin? %>
           <%= link_to "New Playoff history", new_playoff_history_path %>
         <% end %>
+        <%= render "history_item", data: @view.notable_players, editable: true %>        
+        <% if admin? %>
+          <%= link_to "New 162 Player", new_player_history_path %>
+        <% end %>
     </div>
     <div class="col-sm-6">
         <%= render "history_item", data: @view.stadium_history, editable: false %>

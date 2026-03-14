@@ -1,0 +1,253 @@
+<nav class="navbar navbar-expand-lg tronHeaderbar px-3 fixed-top">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    
+    <div class="d-flex align-items-center flex-1">
+      <ul class="navbar-nav me-3">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="border: 1px solid white; border-radius: 1em">
+            <i class="bi bi-list"></i>
+          </a>
+          <ul class="dropdown-menu" style="background-color: #800000;">
+            <li><a href="/" class="menuStyleR dropdown-item">Home</a><li>
+            <li><a href="/schedule" class="menuStyleR dropdown-item">Schedule</a></li>
+            <li><a href="/statistics" class="menuStyleR dropdown-item">Statistics</a></li>
+            <li><a href="/roster" class="menuStyleR dropdown-item">Roster</a></li>
+            <li><a href="/depth_charts" class="menuStyleR dropdown-item">Depth Chart</a></li>
+            <li><a href="/history" class="menuStyleR dropdown-item">History</a></li>
+            <li><a href="/ballpark" class="menuStyleR dropdown-item">Ball Park</a></li>
+          </ul>
+        </li>
+      </ul>
+      
+      <div class="d-flex align-items-center">
+        <%= image_tag @view.away_team_image, height: 70 %>
+        <h3 class="navbar-text fw-bold me-2 teamName d-none d-lg-inline"><%= @view.away_team %></h3>
+        <h1 class="badge bg-secondary fs-2 scoreStyle"><%= @view.recap.away_score %></h1>
+      </div>
+    </div>
+
+    <div class="navbar-text text-center flex-grow-1">
+        <% if @view.game_over? %>
+            <span class="sbStyle">Final</span>
+        <% elsif !@view.started? %>                            
+            <span class="sbStyle"><%= @view.game_time %></span>                            
+        <% else %>
+            <% if @view.inning_half == "bottom" %>                                
+                <i class="bi bi-caret-down-fill"></i>
+            <% end %>
+            <% if @view.inning_half == "top" %>
+                <i class="bi bi-caret-up-fill"></i>
+            <% end %>
+                <span class="sbStyle">&nbsp;<%= @view.inning_number %>&nbsp;</span>
+        <% end %>
+        <div class="d-none d-lg-inline-block" style="border:1px solid gray;margin-top:0">
+            <span class="bsoStyle">B</span>
+            <span class="<%= @view.balls > 0 ? "ballDot" : "noBallDot" %>"></span>
+            <span class="<%= @view.balls > 1 ? "ballDot" : "noBallDot" %>"></span>
+            <span class="<%= @view.balls > 2 ? "ballDot" : "noBallDot" %>"></span>
+            <span class="bsoStyle">S</span>
+            <span class="<%= @view.strikes > 0 ? "strikeDot" : "noStrikeDot" %>"></span>
+            <span class="<%= @view.strikes > 1 ? "strikeDot" : "noStrikeDot" %>"></span>
+            <span class="bsoStyle">O</span>
+            <span class="<%= @view.outs == 1 || @view.outs == 2 ? "outDot" : "noOutDot" %>"></span>
+            <span class="<%= @view.outs == 2 ? "outDot" : "noOutDot" %>"></span>
+        </div>            
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end flex-1">
+      <h1 class="badge bg-secondary fs-2 ms-2 scoreStyle"><%= @view.recap.home_score %></h1>
+      <h3 class="navbar-text fw-bold ms-2 text-end teamName"><%= @view.home_team %></h3>
+      <%= image_tag @view.home_team_image, height: 70 %>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container-fluid" style="padding-top:10px">
+    <div class="row">
+        <div class="text-muted small">
+        <% if @view.last_updated && @view.started? && !@view.game_over? %>
+            Last updated: <%= time_ago_in_words(@view.last_updated) %> ago 
+            (<%= @view.last_updated.strftime("%I:%M %p") %>)
+            <% if @view.last_updated > 5.minutes.ago %>
+                <span class="pulse-dot"></span> <span class="text-success fw-bold">LIVE</span>
+            <% end %>
+        <% end %>
+    </div>
+        <div class="col col-md-6 mx-auto">
+            <div class="d-none d-md-flex">                
+                <table class="linescore">
+                    <thead>
+                        <tr>
+                            <th style="width:30px"></th>
+                            <th style="min-width:100px">
+                            <% (1..@view.display_count).each  do |i| %>
+                            <th><%= i %></th>
+                            <% end %>
+                            <th>R</th>
+                            <th>H</th>
+                            <th>E</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><%= image_tag @view.away_team_image, height:22 %></td>
+                            <td><%= @view.away_team %></td>
+                        <% (1..@view.display_count).each do |inn| %>
+                            <td class="text-center"><%= @view.away_innings_map[inn]&.Runs || "X" %></td>
+                        <% end %>
+                            <td class="text-center"><%= @view.recap.away_score %></td>
+                            <td class="text-center"><%= @view.recap.away_hits %></td>
+                            <td class="text-center"><%= @view.recap.away_errors %></td>
+                        </tr>
+                        <tr class="oddrow">
+                            <td><%= image_tag @view.home_team_image, height: 22 %></td>
+                            <td><%= @view.home_team %></td>
+                        <% (1..@view.display_count).each do |inn| %>
+                            <td class="text-center"><%= @view.home_innings_map[inn]&.Runs || "X" %></td>
+                        <% end %>
+                            <td class="text-center" ><%= @view.recap.home_score %></td>
+                            <td class="text-center" ><%= @view.recap.home_hits %></td>
+                            <td class="text-center" ><%= @view.recap.home_errors %></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="<%= @view.display_count + 5 %>" >
+                                <%= @view.location_text %>&nbsp;&nbsp;<span style="font-size:11px;color:#666"><%= @view.city_text %></span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid mt-2">
+    <div class="row">
+        <div class="col col-md-10 mx-auto ">
+            <ul class="nav nav-tabs " role="tablist">
+                <li role="presentation" class=" nav-item"><a href="#live" aria-controls="live" class="nav-link active " role="tab" data-toggle="tab"><span class="tabText">Live Game Stats</span></a></li>
+                <li role="presentation" class="nav-item"><a href="#boxscore" aria-controls="boxscore" class="nav-link " role="tab" data-toggle="tab"><span class="tabText">Full Box Score</span></a></li>
+                <li role="presentation" class="nav-item"><a href="#pbp" aria-controls="pbp" role="tab" class="nav-link " data-toggle="tab"><span class="tabText">Play By Play</span></a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active scroll" id="live">
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-md-3">
+                            <div class="text-right ms-auto">
+                                <%= render "small_box_score", view_data: @view.away_box %>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="nav nav-tabs bluebottom" role="tablist">
+                                        <li role="presentation" class=" nav-item"><a href="#inning" class="nav-link active" aria-controls="live" role="tab" data-toggle="tab"><span class="tabText">Inning</span></a></li>
+                                        <li role="presentation" class="nav-item"><a href="#runners" class="nav-link" aria-controls="live" role="tab" data-toggle="tab"><span class="tabText">Runners</span></a></li>
+                                        <li role="presentation" class="nav-item"><a href="#defense" class="nav-link" aria-controls="live" role="tab" data-toggle="tab"><span class="tabText">Defense</span></a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="inning">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <p style="text-align:left;margin-top:8px;"><%= image_tag @view.pitching_image, height: 25 %><%= @view.current_pitcher_string %></p>
+                                                    <p style="text-align:left"><%= image_tag @view.hitting_image, height: 25 %>&nbsp;<%= @view.current_ab %></p>
+                                                    <fieldset style="margin-top:15px">
+                                                        <legend>Previous At Bats</legend>
+                                                        <% @view.previous_abs&.each do |ab| %>                                                        
+                                                            <div style="text-align:left"><%= ab.EventText %></div>
+                                                        <% end %>
+                                                    </fieldset>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <fieldset style="margin-top:8px">
+                                                        <legend>Pitches</legend>
+                                                        <ol>
+                                                            <% @view.pitches&.each do |pitch| %>
+                                                                <li><%= pitch %></li>
+                                                            <% end %>
+                                                        </ol>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="runners">
+
+                                            <div class="fieldImg mt-2">
+                                                <% if !@view.game_over? %>                                                
+                                                    <div class="runner onSecond" style="height:20px;"><%= @view.on_second %></div>
+                                                    <div class="runner onThird" style="position:relative;top:80px;left:5px;width:100px;height:30px"><%= @view.on_third %></div>
+                                                    <div class="runner onFirst" style="position:relative;top:50px;width:100px;height:30px"><%= @view.on_first %></div>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane" id="defense">
+                                            <%= render "defense", defense: @view.recap.defense %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <fieldset style="margin-top:15px">
+                                        <legend>Scoring Plays</legend>
+                                        <%= render "scoring_plays", data: @view.scoring_plays, home_logo: @view.home_team_image, away_logo: @view.away_team_image %>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <%= render "small_box_score", view_data: @view.home_box %>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="boxscore">
+                    <div class="row" style="margin-top:5px">
+                        <div class="col-xl-6">
+                            <p class="teamName"><%= image_tag @view.away_team_image, height: 35 %>
+                            <span style="margin-left:5px;" ><%= @view.away_team %></span></p>                            
+                            <%= render "hitting_box", data: @view.away_hitting %>
+                            <%= render "pitching_box", data: @view.away_pitching %>                            
+                        </div>
+                        <div class="col-xl-6">
+                            <p class="teamName"><%= image_tag @view.home_team_image, height: 35 %>
+                            <span style="margin-left:5px;" ><%= @view.away_team %></span></p>
+                            <%= render "hitting_box", data: @view.home_hitting %>                                                       
+                            <%= render "pitching_box", data: @view.home_pitching %>                            
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane scroll" id="pbp">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <%= render "game_summary", data: @view.game_summary, home_logo: @view.home_team_image, away_logo: @view.away_team_image %>
+                        </div>
+                        <div class="col-md-4">
+                            <%= render "scoring_plays", data: @view.scoring_plays, home_logo: @view.home_team_image, away_logo: @view.away_team_image %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  // The timestamp of the file when this page was rendered
+  let currentFileTimestamp = <%= @view.last_updated.to_i %>;
+  const gameId = <%= @view.game.id %>;
+
+  setInterval(function() {
+    fetch(`/gameschedules/${gameId}/last_updated`)
+      .then(response => response.json())
+      .then(data => {
+        // If the server's file is newer than our current page's file
+        if (data.timestamp > currentFileTimestamp) {
+          console.log("New data detected! Refreshing...");
+          window.location.reload();
+        }
+      })
+      .catch(err => console.log("Check failed", err));
+  }, 30000); // Check every 30 seconds
+</script>

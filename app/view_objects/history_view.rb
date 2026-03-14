@@ -39,6 +39,9 @@ class HistoryView
     RetiredNumberHistory.all.map do |h| RetiredNumberHistoryPresenter.new(h) end
   end
 
+  def notable_players
+    PlayerHistory.all.map do |h| NotablePlayerPresenter.new(h) end
+  end
   private
 
   def all_manager_history

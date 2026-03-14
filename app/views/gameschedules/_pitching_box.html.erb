@@ -1,0 +1,36 @@
+<table class="scoreTable wide">
+    <thead>
+        <tr>
+            <th class="alignLeft">Pitchers</th>
+            <th  >IP</th>
+            <th  >H</th>
+            <th  >R</th>
+            <th  >ER</th>
+            <th  >BB</th>
+            <th  >K</th>
+            <th  >HB</th>
+            <th  >HR</th>
+            <th  >BF</th>
+            <th  >ERA</th>
+            <th  >WHIP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.each do |i| %>
+        <tr>
+            <td class=" alignLeft"><%= i.PitcherDisplay %></td>
+            <td><%= i.IP %></td>
+            <td><%= i.H %></td>
+            <td><%= i.R %></td>
+            <td><%= i.ER %></td>
+            <td><%= i.BB %></td>
+            <td><%= i.K %></td>
+            <td><%= i.HB %></td>
+            <td><%= i.HR %></td>
+            <td><%= i.BF %></td>
+            <td><%= i.EraFormatted %></td>
+            <td><%= i.WhipFormatted %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

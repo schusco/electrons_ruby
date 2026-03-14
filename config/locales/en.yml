@@ -48,6 +48,20 @@ en:
         YearStart: "Season Year"
         Finish: "Not used, but required for validation"
         YearEnd: "Not used, but required for validation"
+      player_history:
+        Category: "Category"
+        Data: "Player Name"
+        YearStart: "Not used, but required for validation"
+        Finish: "Date Achieved"
+        YearEnd: "Not used, but required for validation"
+      player:
+        First_Name: "First Name"
+        Last_Name: "Last Name"
+        Current: "Current Player"
+        POS1: "Primary Position"
+        POS2: "Secondary Position"
+        POS3: "Additional Position"
+        DOB: "Birth Date"
   activerecord:
     models:
       player: "Player"

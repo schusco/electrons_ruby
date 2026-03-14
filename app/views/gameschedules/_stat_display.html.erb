@@ -1,0 +1,15 @@
+<% filtered_stats = data.select { |s| s.send(attribute) > 0 } %>
+<% if filtered_stats.any? %>
+    <tr style="height:26px">
+        <td>
+            <span style="white-space: nowrap"><strong><%= label %> -</strong></span>
+            <% if local_assigns[:season_data] %>                
+                <%= filtered_stats.map { |s|
+                    total = s.send(attribute).to_i + season_data[s.Player.Number].to_i || 0 
+                    "#{s.PlayerName} #{s.send(attribute)} (#{total})" }.join(", ")  %>
+            <% else %>
+                <%= filtered_stats.map { |s| "#{s.PlayerName} #{s.send(attribute)}" }.join(", ") %>
+            <% end %>
+        </td>
+    </tr>
+<%  end %>

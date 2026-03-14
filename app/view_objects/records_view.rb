@@ -1,36 +1,44 @@
 class RecordsView
-    ASCENDING_CATEGORIES = [ "H", "R", "ER", "ERA", "WHIP", "BB / 9" ]
+    ASCENDING_CATEGORIES = [ "h", "r", "er", "era", "whip", "bb_per_nine" ]
     PITCHING_THRESHOLDS = { season: 25, career: 50, playoffs: 10 }
     HITTING_THRESHOLDS = { season: 50, career: 100, playoffs: 25 }
-    THRESHOLD_CATEGORIES = ASCENDING_CATEGORIES + [ "BA", "SLG", "OBP", "OPS" ]
+    HITTING_THRESHOLD_CATEGORIES = [ "ba", "slg", "obp", "ops" ]
 
     def  initialize(category, scope, type)
       @category = category
-      category = category&.downcase,
+      @type = type
       @scope = scope
       @active = type || "hit"
       data = type == "pitch" ? filter_pitching : filter_hitting
-
+      if @category.blank?
+        return
+      end
       if data.any?
-        data = data.sort_by { |r| r.public_send(category.first) }
+        sort_category = @category == "innings" ? "ip" : @category
+        data = data.sort_by { |r| r.public_send(sort_category) }
         if sort_direction == "desc"
             data = data.reverse
         end
-        @stats = data.first(15).map { |row| { name: row.name, year: row.year, value: row.public_send(category.first) } }
+        @stats = data.first(15).map { |row| { name: row.name, year: row.year, value: row.public_send(@category) } }
       end
     end
     def hitting_categories
-      [ "AB", "R", "H", "Doubles", "Triples", "HR", "RBI", "BB", "HBP", "K", "SB", "CS", "SAC", "SF", "LOB", "BA", "SLG", "OBP", "OPS" ]
+      [ [ "AB", "ab" ], [ "R", "r" ], [ "H", "h" ], [ "Doubles", "doubles" ], [ "Triples", "triples" ], [ "HR", "hr" ], [ "RBI", "rbi" ], [ "BB", "bb" ], [ "HBP", "hbp" ],
+        [ "K", "k" ], [ "SB", "sb" ], [ "CS", "cs" ], [ "SAC", "sac" ], [ "SF", "sf" ], [ "LOB", "lob" ], [ "BA", "ba" ], [ "SLG", "slg" ], [ "OBP", "obp" ], [ "OPS", "ops" ]
+    ]
     end
     def pitching_categories
-      [ "Wins", "Losses", "Saves", "SvO", "Games", "GS", "IP", "H", "R", "ER", "BB", "K", "HB", "HR", "BF", "CG", "ERA", "WHIP", "K / 9", "BB / 9" ]
+      [ [ "Wins", "wins" ], [ "Losses", "losses" ], [ "Saves", "saves" ], [ "SvO", "saves_opportunities" ], [ "Games", "games" ], [ "GS", "gs" ], [ "IP", "innings" ], [ "H", "h" ],
+      [ "R", "r" ], [ "ER", "er" ], [ "BB", "bb" ], [ "K", "k" ],  [ "HB", "hb" ], [ "HR", "hr" ], [ "BF", "bf" ], [ "CG", "cg" ], [ "ERA", "era" ],  [ "WHIP", "whip" ],
+      [ "K / 9", "k_per_nine" ], [ "BB / 9", "bb_per_nine" ] ]
     end
     def threshold
       vals = @active == "hit" ? HITTING_THRESHOLDS : PITCHING_THRESHOLDS
       vals[scope.downcase.to_sym]
     end
     def threshold_category
-      !THRESHOLD_CATEGORIES.index(@category).nil?
+      category_list = @type == "hit" ? HITTING_THRESHOLD_CATEGORIES : ASCENDING_CATEGORIES
+      !category_list.index(@category).nil?
     end
     def active
       @active
@@ -42,7 +50,7 @@ class RecordsView
       @stats
     end
     def sort_direction
-      return "desc" if @category.blank?
+      return "desc" if @category.blank? || @type == "hit"
       index = ASCENDING_CATEGORIES.index(@category)
       return "asc" if !index.nil?
       "desc"
@@ -105,7 +113,7 @@ class RecordsView
     end
     def stat_header
       categories= @active == "hit" ? hitting_categories : pitching_categories
-      index = categories.index(@category)
-      categories[index]
+      category_array = categories.find { |x| x[1] == @category }
+      category_array[0]
     end
 end

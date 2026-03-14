@@ -74,12 +74,16 @@ SUM(CASE WHEN Decision = 'S' or Decision='BS,L' or Decision='BS,W' THEN 1 ELSE 0
       get_pitching_totals(stats)
   end
 
-  def self.season_hitting_stats(year, playoffs)
+  def self.season_hitting_stats(year, playoffs, thru_date = nil)
+    if thru_date.nil?
+      thru_date = Date.new(year).end_of_year
+    end
     playoff_value = playoffs ? 1 :0
       sql = <<~SQL
     SELECT
       CONCAT_WS(', ', p.Last_Name, LEFT(p.First_Name, 1)) AS name,
       p.Player_ID,
+      p.uniform as number,
       count(*) as games,
       SUM(AB) as ab,
       SUM(R) as r,
@@ -99,7 +103,7 @@ SUM(CASE WHEN Decision = 'S' or Decision='BS,L' or Decision='BS,W' THEN 1 ELSE 0
     FROM hittingstats hs
         JOIN gameschedule gs ON hs.Game_ID = gs.Game_ID
         JOIN players p ON hs.Player_ID = p.Player_ID
-        WHERE gs.Game_Date BETWEEN '#{Date.new(year).beginning_of_year}' AND '#{Date.new(year).end_of_year}' AND gs.Playoff = #{playoff_value}
+        WHERE gs.Game_Date BETWEEN '#{Date.new(year).beginning_of_year}' AND '#{thru_date}' AND gs.Playoff = #{playoff_value}
         GROUP BY p.Player_ID, p.Last_Name, p.First_Name
         ORDER BY ab DESC
   SQL
@@ -208,6 +212,6 @@ SUM(CASE WHEN Decision = 'S' or Decision='BS,L' or Decision='BS,W' THEN 1 ELSE 0
     HittingStatsRow.new(name: name, year: nil, player_id: nil, playoff: nil, games: stats.sum(&:games), ab: stats.sum(&:ab),
     r: stats.sum(&:r), h: stats.sum(&:h), doubles: stats.sum(&:doubles), triples: stats.sum(&:triples),
     hr: stats.sum(&:hr), rbi: stats.sum(&:rbi), bb: stats.sum(&:bb), hbp: stats.sum(&:hbp), k: stats.sum(&:k),
-    sb: stats.sum(&:sb), cs: stats.sum(&:cs), sac: stats.sum(&:sac), sf: stats.sum(&:sf), lob: stats.sum(&:lob))
+    sb: stats.sum(&:sb), cs: stats.sum(&:cs), sac: stats.sum(&:sac), sf: stats.sum(&:sf), lob: stats.sum(&:lob), number: 0)
   end
 end

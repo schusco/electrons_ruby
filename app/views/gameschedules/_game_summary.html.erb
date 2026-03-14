@@ -1,0 +1,12 @@
+<% data.each do |i| %>
+<fieldset style="margin-top:5px;">
+    <legend style="background-color:#dddddd;border-bottom:1px solid #666666;margin-bottom:5px;">
+        <% logo = i.Description.include?("Top") ? away_logo : home_logo %>
+        <span style="padding-left:5px"><%= image_tag logo, height: 30 %><span style="margin-left:5px"><%= i.Description %></span>
+    </legend>
+    <% i.Events.reverse.each do |ev| %>    
+        <span style="padding-left:5px;padding-top:2px;padding-bottom:2px;border-bottom:1px solid #ddd" class="block <%= ev.ScoringPlay ? "score": ""%>"><%= ev.EventText %></span>
+    <% end %>
+    <p style="margin-top:5px;padding-left:5px;font-weight:bold"><%= i.Summary %></p>
+</fieldset>
+<% end %>

@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
     secret = Rails.application.credentials.admin_token.to_s
     if params[:login].to_s == secret
       session[:admin_token] = secret
-      redirect_to roster_path, notice: "Admin login successful"
+      redirect_to root_path, notice: "Admin login successful"
     elsif params[:logout].to_s == "true"
       session.delete(:admin_token)
-      redirect_to roster_path, notice: "Admin logout successful"
+      redirect_to root_path, notice: "Admin logout successful"
     end
   end
   def authenticate_admin!

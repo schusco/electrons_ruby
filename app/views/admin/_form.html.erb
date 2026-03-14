@@ -27,7 +27,7 @@
       <%= form.number_field :YearStart, class: "form-control", value: form.object.YearStart, disabled: true %>
     <% else %>
       <div data-controller="uniqueness" data-uniqueness-url-value="<%= check_uniqueness_histories_path %>" data-uniqueness-category-value="<%= record.Category %>">    
-        <%= form.number_field :YearStart, 
+        <%= form.number_field :YearStart, class: "form-control",
             data: { 
               uniqueness_target: "input", 
               action: "blur->uniqueness#check" 
@@ -53,6 +53,7 @@
   <div class="col-sm-4 mt-2">
      
     <%= form.submit %>
+    <%= link_to  "Back to history", history_index_path  %>
   </div>
   </div>
 

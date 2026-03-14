@@ -45,7 +45,7 @@ class ScheduleView
     days={}
     games_by_day = games.group_by { |g| g.Game_Date.day }
     events_by_day = Event.where("YEAR(date) = ? AND MONTH(date) = ?", @year, @month).group_by { |e| e.date.day }
-    birthdays_by_day = Player.current.where("MONTH(DOB) = ?", @month).group_by { |p| p.dob.day }
+    birthdays_by_day = Player.current.where("MONTH(DOB) = ?", @month).group_by { |p| p.dob.utc.day }
       (1..days_in_month).each do |day|
         days[day] = {
           games: games_by_day[day] || [],
@@ -54,6 +54,9 @@ class ScheduleView
       }
     end
     days
+  end
+  def birthday_text(player)
+    "#{player.first_name} #{player.last_name}'s Birthday (#{player.age_in(@year)})"
   end
   def days_to_skip
     Date.new(@year, @month, 1).wday
@@ -66,19 +69,19 @@ class ScheduleView
   end
   def game_text(game_data)
     return "" if game_data.nil?
-    location_indicator = game_data.HV == "H" ? "vs. " : "@ "
+    location_indicator = game_data.home? ? "vs. " : "@ "
     game_string = "#{game_data.opponent}"
-    logo_path = game_data.hv == "H" ? game_data.away_logo : game_data.home_logo
+    logo_path = game_data.home? ? game_data.away_logo : game_data.home_logo
     logo = @context.image_tag(logo_path, class: "team-logo me-2", height: 22)
     if game_data.Game_Date > Time.current
       time_and_location = " #{game_data.Game_Date.utc.strftime("%-I:%M %p")} #{game_data.location.ShortName}"
       @context.safe_join([ location_indicator, logo, game_string, time_and_location ])
     else
-      electron_score = game_data.hv == "H" ? game_data.home_total_runs : game_data.away_total_runs
-      opponent_score = game_data.hv == "H" ? game_data.away_total_runs : game_data.home_total_runs
+      electron_score = game_data.home? ? game_data.home_total_runs : game_data.away_total_runs
+      opponent_score = game_data.home? ? game_data.away_total_runs : game_data.home_total_runs
       wlt = electron_score > opponent_score ? "W" : (electron_score < opponent_score ? "L" : "T")
       result = "#{wlt} #{electron_score}-#{opponent_score} "
-      result_link = @context.link_to(result, @context.game_path(game_data.Game_ID))
+      result_link = @context.link_to(result, @context.live_game_gameschedules_path(game_data.Game_ID))
       @context.safe_join([ location_indicator, logo, game_string, "&nbsp;".html_safe, result_link ])
     end
   end
