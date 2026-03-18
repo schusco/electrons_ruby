@@ -1,15 +1,30 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  Category: MyString
-  Data: MyString
-  YearStart: MyString
-  YearEnd: MyString
-  Finish: MyString
+  Category: Stadium
+  Data: Winnemac Park
+  YearStart: 2003
+  YearEnd: 2023
+  Finish: null
 
 two:
-  Category: MyString
-  Data: MyString
-  YearStart: MyString
-  YearEnd: MyString
-  Finish: MyString
+  Category: Manager
+  Data: Al Stern
+  YearStart: 2005
+  YearEnd: 2009
+  Finish: null
+
+three:
+  Category: Result
+  Data: 7-21
+  YearStart: 2003
+  YearEnd: x
+  Finish: 5th
+
+four:
+  Category: Championship
+  Data: 1-2
+  YearStart: 2008
+  YearEnd: x
+  Finish: Lost 1st Round
+

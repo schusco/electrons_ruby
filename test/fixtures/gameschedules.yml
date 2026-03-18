@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  gamedate: 2026-02-21 10:43:29
+  Game_Date: 2026-02-21 10:43:29
+  Location: "Winnemac Park"
+  LocationId: 1
+  Opponent: "Hounds"
 
 two:
-  gamedate: 2026-02-21 10:43:29
+  Game_Date: 2026-05-02 12:00:00
+  Location: "Southwest Park"
+  LocationId: 2
+  Opponent: "White Sox"

@@ -19,7 +19,7 @@ class AwardsController < ApplicationController
 
   # GET /awards/1/edit
   def edit
-    @award = @player.awards.find(params[:id])
+    @award = Award.find(params[:id])
     @player = @award.player
   end
 

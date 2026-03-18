@@ -1,7 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  \: MyString
+  Id: 1
+  FieldName: Winnemac Park
+  ShortName: WN
+  Current: true
+  CityAndState: Chicago, IL
+  GoogleName: 'Winnemac Park, 5100 N Leavitt St, Chicago, IL 60625, USA'
+  Link: 'https://www.google.com/maps/place/Winnemac+Park/@41.9741228,-87.68417,17z/data=!3m1!4b1!4m5!3m4!1s0x880fd21e6beb7205:0xef3f9b506d7d1d4d!8m2!3d41.9741228!4d-87.6819813'
+  
 
 two:
-  \: MyString
+  Id: 2
+  FieldName: Southwest Park
+  ShortName: SW
+  Current: true
+  CityAndState: Park Ridge, IL
+  GoogleName: 'Southwest Park, 1600 S Lincoln Ave, Park Ridge, IL 60068, USA'
+  Link: ""
+  

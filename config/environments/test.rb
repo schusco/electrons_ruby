@@ -50,4 +50,7 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+  config.after_initialize do
+    Rails.application.credentials.admin_token = "test_token_123"
+  end
 end

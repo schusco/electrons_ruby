@@ -12,7 +12,7 @@ one:
 
 two:
   GameId: 1
-  Inning: 1
+  Inning: 2
   Hruns: 1
   Hhits: 1
   Herrors: 1

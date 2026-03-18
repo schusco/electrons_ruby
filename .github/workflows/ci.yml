@@ -24,7 +24,9 @@ jobs:
           bin/brakeman --no-pager
       
       - name: Scan for known security vulnerabilities in gems used
-        run: bin/bundler-audit
+        run: |
+          chmod +x bin/bundler-audit
+          bin/bundler-audit
       
   scan_js:
     runs-on: ubuntu-latest
@@ -39,7 +41,9 @@ jobs:
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
+        run: |
+          chmod +x bin/importmap
+          bin/importmap audit
 
   lint:
     runs-on: ubuntu-latest
@@ -65,7 +69,9 @@ jobs:
             rubocop-${{ runner.os }}-${{ env.DEPENDENCIES_HASH }}-
 
       - name: Lint code for consistent style
-        run: bin/rubocop -f github
+        run: |
+          chmod +x bin/rubocop
+          bin/rubocop -f github
 
   test:
     runs-on: ubuntu-latest
@@ -103,7 +109,10 @@ jobs:
           DATABASE_URL: mysql2://127.0.0.1:3306
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: |
+          chmod +x bin/rails
+          bin/rails db:create db:schema:load 
+          bin/rails test
 
   system-test:
     runs-on: ubuntu-latest
@@ -141,7 +150,10 @@ jobs:
           DATABASE_URL: mysql2://127.0.0.1:3306
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
+        run: |
+          chmod +x bin/rails
+          bin/rails db:create db:schema:load 
+          bin/rails test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
