@@ -1,8 +1,12 @@
 class StatisticsView
+  attr_reader :year, :playoffs
     def initialize(year, playoffs)
       @year = year.to_i if year.present?
       @year ||= Time.current.year
       @playoffs = playoffs
+      if !pitching_stats.any? && !hitting_stats.any?
+          @year = @year-1
+      end
     end
 
     def year

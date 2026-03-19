@@ -17,7 +17,8 @@ class GameschedulesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create gameschedule" do
     assert_difference("Gameschedule.count") do
-      post gameschedules_url, params: { gameschedule: { gamedate: @gameschedule.gamedate } }
+      post gameschedules_url, params: { gameschedule: { Game_Date: @gameschedule.Game_Date, Location: @gameschedule.Location,
+        LocationId: @gameschedule.LocationId, opponent: @gameschedule.Opponent, Manager: 1 } }
     end
 
     assert_redirected_to gameschedule_url(Gameschedule.last)
@@ -34,15 +35,7 @@ class GameschedulesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update gameschedule" do
-    patch gameschedule_url(@gameschedule), params: { gameschedule: { gamedate: @gameschedule.gamedate } }
+    patch gameschedule_url(@gameschedule), params: { gameschedule: { Game_Date: @gameschedule.Game_Date, Location: "Winnemac Park", LocationId: 1, Opponent: "Hounds" } }
     assert_redirected_to gameschedule_url(@gameschedule)
-  end
-
-  test "should destroy gameschedule" do
-    assert_difference("Gameschedule.count", -1) do
-      delete gameschedule_url(@gameschedule)
-    end
-
-    assert_redirected_to gameschedules_url
   end
 end

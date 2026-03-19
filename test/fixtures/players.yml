@@ -2,16 +2,16 @@
 
 one:
   Player_ID: 1
-  First_Name: MyString
-  Last_Name: MyString
+  First_Name: Monkey
+  Last_Name: F*ck
   Current: false
-  Bats: MyString
-  Throws: MyString
-  POS1: MyString
-  POS2: MyString
-  POS3: MyString
-  Nickname: MyString
-  Hometown: MyString
+  Bats: R
+  Throws: R
+  POS1: SS
+  POS2: P
+  POS3: C
+  Nickname: Dickwaste
+  Hometown: Chicago, IL
   Divorces: 1
   DOB: 2026-02-22 08:47:28
   Height: 1
@@ -21,17 +21,17 @@ one:
   email: MyString
 
 two:
-  Player_ID: 1
-  First_Name: MyString
-  Last_Name: MyString
-  Current: false
-  Bats: MyString
-  Throws: MyString
-  POS1: MyString
-  POS2: MyString
-  POS3: MyString
-  Nickname: MyString
-  Hometown: MyString
+  Player_ID: 2
+  First_Name: Dip
+  Last_Name: Sh*t
+  Current: true
+  Bats: R
+  Throws: R
+  POS1: P
+  POS2: C
+  POS3: null
+  Nickname: null
+  Hometown: Chicago, IL
   Divorces: 1
   DOB: 2026-02-22 08:47:28
   Height: 1

@@ -23,6 +23,7 @@ module Electrons
     #
     config.time_zone = "Central Time (US & Canada)"
     config.settings = config_for(:settings)
+    config.active_record.schema_format = :sql
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

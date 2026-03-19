@@ -12,4 +12,13 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
   end
+  class ActionDispatch::IntegrationTest
+    # This helper wraps every request and injects your token
+    def process(method, path, **args)
+      args[:params] ||= {}
+      # Ensure the token matches what your authenticate_admin! expects
+      args[:params][:admin_token] = "test_token_123"
+      super(method, path, **args)
+    end
+  end
 end

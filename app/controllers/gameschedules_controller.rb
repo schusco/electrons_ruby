@@ -19,7 +19,7 @@ class GameschedulesController < ApplicationController
     @gameschedule = Gameschedule.new
   end
   def live
-    game_recap_path=Rails.root.join("public", "data", "recaps", "game_recap_#{@game.id}.json")
+    game_recap_path = Rails.root.join("public", "data", "recaps", "game_recap_#{@game.id}.json")
     if File.exist?(game_recap_path)
       @view = LiveGameView.new(@game, game_recap_path)
       render layout: "recap"
@@ -28,7 +28,8 @@ class GameschedulesController < ApplicationController
     end
   end
   def last_updated
-    recap_path = Rails.root.join("public", "data", "recaps", "game_recap_#{params[:id]}.json")
+    safe_id = params[:id].to_i
+    recap_path = Rails.root.join("public", "data", "recaps", "game_recap_#{safe_id}.json")
 
     if File.exist?(recap_path)
       # Return the Unix timestamp (seconds since epoch)
@@ -81,16 +82,17 @@ class GameschedulesController < ApplicationController
       @view = ScheduleView.new(year, month, view_context)
     end
     def set_game
-      @game = Gameschedule.find_by("Game_ID = #{params[:id]}")
+      @game = Gameschedule.find_by(Game_ID: params[:id])
       if @game.nil?
         set_next_game
         render "home"
+      else
+        @game_pitching_rows = @game.pitching_stats.map { |stat| PitchingStatsRow.from(stat) }
+        @game_hitting_rows = @game.hitting_stats.map { |stat| HittingStatsRow.from(stat) }
       end
-      @game_pitching_rows = @game.pitching_stats.map { |stat| PitchingStatsRow.from(stat) }
-      @game_hitting_rows = @game.hitting_stats.map { |stat| HittingStatsRow.from(stat) }
     end
     # Only allow a list of trusted parameters through.
     def gameschedule_params
-      params.expect(gameschedule: [ :game_date, :opponent, :HV, :Playoff, :Finals, :Wood, :Manager, :notes, :LocationId ])
+      params.expect(gameschedule: [ :game_date, :opponent, :HV, :Playoff, :Finals, :Wood, :Manager, :notes, :Location, :LocationId ])
     end
 end
