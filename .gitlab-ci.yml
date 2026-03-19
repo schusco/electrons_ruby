@@ -27,7 +27,7 @@ build-job:       # This job runs in the build stage, which runs first.
   variables:
       DOCKER_TLS_CERTDIR: "/certs"        
   script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_RESISTRY -u $CI_RESISTRY_USER --password-stdin
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - echo "Docker login success."
     - docker build -t $CI_REGISTRY_IMAGE:latest .
     - echo "Docker build complete."
