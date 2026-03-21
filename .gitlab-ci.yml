@@ -37,4 +37,3 @@ build-job:       # This job runs in the build stage, which runs first.
     - echo "docker push success."
   only:
     - master
-
