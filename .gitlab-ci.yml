@@ -18,6 +18,7 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - build
+  - deploy
 
 build_job:
   stage: build
@@ -43,3 +44,34 @@ build_tagged_version:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+
+create_release:
+  stage: build
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - echo "Creating release for $CI_COMMIT_TAG"
+  release:
+    name: 'Release $CI_COMMIT_TAG'
+    description: 'Automatic release created from tag $CI_COMMIT_TAG. Includes latest Docker image.'
+    tag_name: '$CI_COMMIT_TAG'
+    ref: '$CI_COMMIT_TAG'
+
+deploy_ruby_app:
+  stage: deploy
+  script:
+    - chmod 400 $SSH_PRIVATE_KEY
+    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_IP "
+         cd /home/ec2-user/electrons_ruby && 
+         docker compose pull && 
+         docker compose up -d &&
+         echo 'Waiting for health check...' &&
+         until [ \"\$(docker inspect -f '{{.State.Health.Status}}' electrons-app)\" == \"healthy\" ]; do
+          printf '.'
+          sleep 5
+        done &&
+        echo 'App is UP and Healthy!' &&
+        docker image prune -f"
+  only:
+    - master
