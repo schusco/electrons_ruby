@@ -1,7 +1,7 @@
 services:
   electrons-ruby:
     container_name: electrons-app
-    image: registry.gitlab.com/schusco/electrons-ruby:latest
+    image: registry.gitlab.com/schusco/electrons_ruby:latest
     user: "1000:1000"
     restart: always  # This handles the "Auto-Run" on crash or reboot
     volumes:
