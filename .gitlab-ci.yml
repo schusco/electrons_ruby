@@ -62,16 +62,18 @@ deploy_ruby_app:
   stage: deploy
   script:
     - chmod 400 $SSH_PRIVATE_KEY
-    - ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_IP "
-         cd /home/ec2-user/electrons_ruby && 
-         docker compose pull && 
-         docker compose up -d &&
-         echo 'Waiting for health check...' &&
-         until [ \"\$(docker inspect -f '{{.State.Health.Status}}' electrons-app)\" == \"healthy\" ]; do
+    - |
+      ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_IP << 'EOF'
+         cd /home/ec2-user/electrons_ruby  
+         docker compose pull 
+         docker compose up -d 
+         echo "Waiting for health check..."
+         until [ "$(docker inspect -f '{{.State.Health.Status}}' electrons-app)" == "healthy" ]; do
           printf '.'
           sleep 5
-        done &&
-        echo 'App is UP and Healthy!' &&
-        docker image prune -f"
+        done 
+        echo "App is UP and Healthy!""
+        docker image prune -f
+      EOF
   only:
     - master
