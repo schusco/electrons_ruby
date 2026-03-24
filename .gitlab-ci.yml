@@ -72,7 +72,7 @@ deploy_ruby_app:
           printf '.'
           sleep 5
         done 
-        echo "App is UP and Healthy!""
+        echo "App is UP and Healthy!"
         docker image prune -f
       EOF
   only:
