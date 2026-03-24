@@ -61,6 +61,6 @@ create_release:
 deploy_ruby_app:
   stage: deploy
   script:
-    - ssh $SERVER_USER@$SERVER_IP "cd /path/to/app && docker-compose pull && docker-compose up -d"
+    - ssh $SERVER_USER@$SERVER_IP "cd /home/ec2-user/electrons_ruby && docker-compose pull && docker-compose up -d"
   only:
     - master
