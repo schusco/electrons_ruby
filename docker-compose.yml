@@ -19,5 +19,5 @@ services:
     
 networks:
   electrons-bridge:
-    name: electrons-net
+    name: electron-net
     external: true
