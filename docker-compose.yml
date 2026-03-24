@@ -1,0 +1,23 @@
+services:
+  electrons-ruby:
+    container_name: electrons-app
+    image: registry.gitlab.com/schusco/electrons-ruby:latest
+    user: "1000:1000"
+    restart: always  # This handles the "Auto-Run" on crash or reboot
+    volumes:
+      - /home/ec2-user/electrons_ruby/public:/app/public # Persistent volume mapping
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - DB_HOST={$DB_HOST}
+      - ELECTRONS_DATABASE_PASSWORD=${DB_PASSWORD}
+    networks:
+      - electrons-bridge
+    
+networks:
+  electrons-bridge:
+    name: electrons-net
+    external: true

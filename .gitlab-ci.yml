@@ -18,6 +18,7 @@
 
 stages:          # List of stages for jobs, and their order of execution
   - build
+  - deploy
 
 build_job:
   stage: build
@@ -56,3 +57,10 @@ create_release:
     description: 'Automatic release created from tag $CI_COMMIT_TAG. Includes latest Docker image.'
     tag_name: '$CI_COMMIT_TAG'
     ref: '$CI_COMMIT_TAG'
+
+deploy_ruby_app:
+  stage: deploy
+  script:
+    - ssh $SERVER_USER@$SERVER_IP "cd /path/to/app && docker-compose pull && docker-compose up -d"
+  only:
+    - master
