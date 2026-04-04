@@ -25,5 +25,5 @@ services:
       
 networks:
   electrons-bridge:
-    name: electron-net
+    name: scoreboardapi_electron-net
     external: true
